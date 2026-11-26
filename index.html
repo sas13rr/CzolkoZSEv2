@@ -354,28 +354,74 @@ label.lbl { font-size: 13px; font-weight: 700; color: var(--mute); display: bloc
 }
 .room-brand .rb-io { background: linear-gradient(90deg, #ff7ac0, #ffc23d); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .status-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; color: var(--mute); background: #0c0822c0; border: 1px solid var(--line); padding: 7px 12px; border-radius: 999px; backdrop-filter: blur(6px); }
-.start-inner { width: 100%; max-width: 980px; margin: auto 0; display: grid; grid-template-columns: 1fr; gap: 16px; padding-top: 8px; }
-.start-col { display: flex; flex-direction: column; gap: 15px; min-width: 0; }
-@media (min-width: 900px) {
-  .start-inner { grid-template-columns: 1.05fr 1fr; gap: 26px; align-items: center; }
-  .hero { text-align: left !important; }
-  .hero .logo-row { justify-content: flex-start !important; }
+.start-inner { width: 100%; max-width: 560px; margin: auto; display: flex; flex-direction: column; gap: 14px; padding-top: 6px; }
+.start-col { display: flex; flex-direction: column; gap: 14px; min-width: 0; width: 100%; }
+.start-stepper {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  background: #0c0824cc; border: 1px solid var(--line); border-radius: 16px; padding: 5px;
 }
-.hero { text-align: center; padding: 8px 0 2px; position: relative; }
+.start-stepper .st-pill {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 8px 10px; border-radius: 12px; font-size: 13px; font-weight: 800; color: var(--dim);
+  transition: background var(--t-med), color var(--t-med), box-shadow var(--t-med);
+}
+.start-stepper .st-pill .st-n {
+  width: 22px; height: 22px; border-radius: 8px; font-family: 'Fredoka', sans-serif; font-size: 13px;
+  display: inline-flex; align-items: center; justify-content: center; background: #1d1644; color: var(--mute);
+}
+.start-stepper .st-pill.on {
+  background: linear-gradient(135deg, #2d2268, #20164d); color: #fff;
+  box-shadow: inset 0 0 0 1px var(--line-hi), 0 0 16px rgba(139, 92, 246, .35);
+}
+.start-stepper .st-pill.on .st-n {
+  background: linear-gradient(135deg, #7c4dff, #ff4fa3); color: #fff; box-shadow: var(--glow-pink);
+}
+.start-stepper .st-pill.done { color: var(--lime); }
+.start-stepper .st-pill.done .st-n { background: linear-gradient(135deg, #10a36f, #3cf0a5); color: #052116; }
+.start-step { display: flex; flex-direction: column; gap: 14px; }
+.start-step.step-in-fwd { animation: stepInFwd .32s var(--ease-out); }
+.start-step.step-in-back { animation: stepInBack .32s var(--ease-out); }
+@keyframes stepInFwd { from { opacity: 0; transform: translateX(22px) scale(.99); } to { opacity: 1; transform: none; } }
+@keyframes stepInBack { from { opacity: 0; transform: translateX(-22px) scale(.99); } to { opacity: 1; transform: none; } }
+
+.invite-chip {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  align-self: center;
+  padding: 7px 14px; border-radius: 999px;
+  background: linear-gradient(135deg, rgba(34, 211, 238, .18), rgba(60, 240, 165, .18));
+  border: 1.5px solid rgba(60, 240, 165, .55);
+  color: #dcfff2; font-size: 13px; font-weight: 800;
+  box-shadow: var(--glow-cyan);
+}
+.invite-chip b {
+  font-family: 'Fredoka', sans-serif; color: var(--amber); letter-spacing: .12em; font-size: 14px;
+}
+.profile-bar {
+  display: flex; align-items: center; gap: 11px;
+  padding: 10px 12px; border-radius: 18px;
+  background: linear-gradient(135deg, #1b1448, #100b2d);
+  border: 1.5px solid var(--line-hi);
+  box-shadow: 0 10px 26px -14px #000, inset 0 1px 0 rgba(255, 255, 255, .1);
+}
+.profile-bar .pb-info { min-width: 0; flex: 1; }
+.profile-bar .pb-kicker { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: var(--cyan); }
+.profile-bar .pb-nick { font-family: 'Fredoka', sans-serif; font-size: 19px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.15; }
+
+.hero { text-align: center; padding: 6px 0 2px; position: relative; }
 .logo-row { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
 .logo-badge {
   position: relative;
-  display: inline-flex; width: 64px; height: 64px; border-radius: 21px;
+  display: inline-flex; width: 58px; height: 58px; border-radius: 19px;
   align-items: center; justify-content: center;
   background: linear-gradient(135deg, #7c4dff, #ff4fa3);
   box-shadow: 0 6px 0 #4a1466, var(--glow-pink), inset 0 1px 0 #ffffff55;
-  font-size: 31px;
+  font-size: 29px;
   animation: badgeFloat 3.4s ease-in-out infinite;
 }
-.logo-badge::after { content: ''; position: absolute; inset: -6px; border-radius: 26px; border: 2px solid #ff4fa355; animation: badgeRing 2.6s ease-out infinite; }
+.logo-badge::after { content: ''; position: absolute; inset: -6px; border-radius: 24px; border: 2px solid #ff4fa355; animation: badgeRing 2.6s ease-out infinite; }
 @keyframes badgeFloat { 0%, 100% { transform: rotate(-8deg) translateY(0); } 50% { transform: rotate(-3deg) translateY(-6px); } }
 @keyframes badgeRing { from { transform: scale(.9); opacity: 1; } to { transform: scale(1.35); opacity: 0; } }
-.logo h1, .hero h1 { font-family: 'Fredoka', sans-serif; font-size: clamp(42px, 9vw, 64px); letter-spacing: .01em; line-height: .95; font-weight: 700; }
+.logo h1, .hero h1 { font-family: 'Fredoka', sans-serif; font-size: clamp(38px, 8vw, 56px); letter-spacing: .01em; line-height: .95; font-weight: 700; }
 .hero h1 .h-main { background: linear-gradient(180deg, #ffffff, #d9ccff); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 18px #8b5cf688); }
 .hero h1 .h-io { background: linear-gradient(90deg, #ff7ac0, #ffc23d); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 16px #ff4fa366); }
 .ver-pill {
@@ -387,34 +433,16 @@ label.lbl { font-size: 13px; font-weight: 700; color: var(--mute); display: bloc
   box-shadow: var(--glow-cyan);
   letter-spacing: .04em;
 }
-.hero-tag { color: var(--mute); font-size: 15px; margin-top: 10px; font-weight: 600; }
+.hero-tag { color: var(--mute); font-size: 14.5px; margin-top: 8px; font-weight: 600; }
 .hero-tag b { color: #fff; }
 .hero-deco { position: absolute; inset: -10px 0 auto; height: 0; pointer-events: none; }
-.float-emo { position: absolute; font-size: 26px; opacity: .55; animation: floatEmo 6s ease-in-out infinite; filter: drop-shadow(0 6px 12px #0008); }
-.float-emo:nth-child(1) { left: 2%; top: 4px; animation-delay: -1s; }
-.float-emo:nth-child(2) { right: 4%; top: 16px; animation-delay: -3s; font-size: 22px; }
-.float-emo:nth-child(3) { right: 16%; top: 96px; animation-delay: -2s; font-size: 18px; }
+.float-emo { position: absolute; font-size: 24px; opacity: .55; animation: floatEmo 6s ease-in-out infinite; filter: drop-shadow(0 6px 12px #0008); }
+.float-emo:nth-child(1) { left: 4%; top: 4px; animation-delay: -1s; }
+.float-emo:nth-child(2) { right: 5%; top: 14px; animation-delay: -3s; font-size: 21px; }
+.float-emo:nth-child(3) { left: 7%; top: 76px; animation-delay: -2s; font-size: 17px; }
 @keyframes floatEmo { 50% { transform: translateY(-10px) rotate(8deg); } }
-@media (min-width: 900px) { .hero-deco { display: none; } }
 
-.mode-show { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
-.ms-card {
-  position: relative; overflow: hidden;
-  border-radius: 20px; padding: 14px; text-align: left;
-  border: 1px solid #ffffff26;
-  box-shadow: 0 6px 0 var(--shadow), 0 18px 36px -16px #000;
-  transition: transform var(--t-med) var(--ease-out), box-shadow var(--t-med);
-}
-.ms-card:hover { transform: translateY(-3px) rotate(-.4deg); }
-.ms-card.live { background: linear-gradient(140deg, #4b25c7, #a42d94 70%, #ff4f8f); }
-.ms-card.fh { background: linear-gradient(140deg, #0b3e68, #0e6a7c 70%, #14a38a); }
-.ms-card .ms-ico { font-size: 28px; display: block; margin-bottom: 4px; }
-.ms-card b { font-family: 'Fredoka', sans-serif; font-size: 18px; display: block; }
-.ms-card small { font-size: 12px; color: #ffffffd0; font-weight: 600; display: block; margin-top: 2px; line-height: 1.3; }
-.ms-card .ms-tag { position: absolute; top: 10px; right: 10px; font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; background: #00000040; }
-.ms-card::after { content: ''; position: absolute; width: 120px; height: 120px; right: -40px; bottom: -50px; border-radius: 50%; background: #ffffff1c; }
-.feat-row { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 12px; }
-@media (min-width: 900px) { .feat-row { justify-content: flex-start; } }
+.feat-row { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 10px; }
 
 .step-head { display: flex; align-items: center; gap: 12px; }
 .step-num {
@@ -462,7 +490,7 @@ label.lbl { font-size: 13px; font-weight: 700; color: var(--mute); display: bloc
 @media (max-width: 600px) {
   #scr-start { padding: calc(8px + var(--safe-t)) calc(12px + var(--safe-r)) calc(18px + var(--safe-b)) calc(12px + var(--safe-l)); }
   .start-inner { gap: 10px; padding-top: 4px; }
-  .start-col { gap: 10px; }
+  .start-step { gap: 10px; }
   .hero { padding: 2px 0 0; }
   .hero-deco, .feat-row { display: none; }
   .logo-row { gap: 8px; }
@@ -470,12 +498,7 @@ label.lbl { font-size: 13px; font-weight: 700; color: var(--mute); display: bloc
   .hero h1 { font-size: 34px; }
   .ver-pill { font-size: 10px; padding: 3px 8px; }
   .hero-tag { font-size: 12.5px; margin-top: 5px; line-height: 1.3; }
-  .mode-show { margin-top: 8px; gap: 8px; }
-  .ms-card { padding: 9px 11px; border-radius: 15px; display: flex; align-items: center; gap: 8px; }
-  .ms-card .ms-ico { font-size: 20px; margin: 0; flex-shrink: 0; }
-  .ms-card b { font-size: 14px; }
-  .ms-card small, .ms-card .ms-tag, .ms-card::after { display: none; }
-  #scr-start .card { padding: 13px; gap: 10px; border-radius: 18px; }
+  #scr-start .card { padding: 14px; gap: 11px; border-radius: 18px; }
   #scr-start .step-head .kicker { display: none; }
   #scr-start .step-head h2 { font-size: 18px !important; }
   #scr-start .step-num { width: 30px; height: 30px; font-size: 15px; border-radius: 10px; }
@@ -645,18 +668,62 @@ main.room {
 .banner {
   position: relative; overflow: hidden;
   display: flex; align-items: center; flex-wrap: wrap; gap: 12px;
-  background: linear-gradient(120deg, #3cf0a524, #7c4dff30, #ff4fa324);
-  border: 1.5px solid #3cf0a588;
-  border-radius: 20px; padding: 12px 14px;
-  box-shadow: var(--glow-lime);
-  animation: reveal .45s var(--ease-out) both;
+  background: linear-gradient(120deg, rgba(16, 76, 62, .94), rgba(50, 32, 118, .94), rgba(92, 26, 76, .92));
+  border: 1.5px solid #3cf0a5bb;
+  border-radius: 20px; padding: 13px 15px;
+  box-shadow: var(--glow-lime), 0 12px 26px -14px #000;
+  animation: bannerPop .24s var(--ease-out);
 }
+@keyframes bannerPop { from { transform: translateY(-4px) scale(.985); } to { transform: none; } }
 .banner::before { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 35%, #ffffff18 50%, transparent 65%); transform: translateX(-100%); animation: sweep 3.2s ease-in-out infinite; pointer-events: none; }
 @keyframes sweep { 60%, 100% { transform: translateX(100%); } }
 @keyframes glow { 50% { border-color: #ffc23d99; } }
 
-.modes { display: grid; grid-template-columns: 1.35fr 1fr; gap: 14px; }
+.lobby-cat-tabs {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  background: #0a0620; border: 1.5px solid var(--line-hi); border-radius: 20px; padding: 6px;
+  box-shadow: 0 12px 30px -16px #000, inset 0 1px 0 rgba(255, 255, 255, .07);
+}
+.lobby-cat-btn {
+  position: relative;
+  border: 1px solid transparent; background: transparent; color: var(--mute);
+  border-radius: 14px; padding: 12px 14px; min-height: 52px;
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  font-family: 'Fredoka', sans-serif; font-size: 17px; font-weight: 700;
+  transition: background var(--t-med), color var(--t-med), box-shadow var(--t-med), border-color var(--t-med), transform var(--t-fast);
+}
+.lobby-cat-btn:active { transform: scale(.98); }
+.lobby-cat-btn .lcat-sub {
+  font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 800;
+  padding: 2px 8px; border-radius: 999px; background: rgba(255, 255, 255, .09); color: var(--mute);
+}
+.lobby-cat-btn .lcat-live-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--lime);
+  box-shadow: var(--glow-lime); display: none;
+}
+.lobby-cat-btn.has-live .lcat-live-dot { display: inline-block; animation: ping 1.6s infinite; }
+.lobby-cat-btn.on.is-online {
+  background: linear-gradient(135deg, #3c46c9, #6b46e5 55%, #9d4edd);
+  color: #fff; border-color: rgba(186, 196, 255, .5);
+  box-shadow: 0 4px 0 #1f1b68, 0 0 24px rgba(107, 70, 229, .5);
+}
+.lobby-cat-btn.on.is-local {
+  background: linear-gradient(135deg, #7c2bc0, #d93b88 60%, #ff5c8a);
+  color: #fff; border-color: rgba(255, 179, 217, .5);
+  box-shadow: 0 4px 0 #4c1147, var(--glow-pink);
+}
+.lobby-cat-btn.on .lcat-sub { background: rgba(0, 0, 0, .28); color: #fff; }
+@media (max-width: 520px) {
+  .lobby-cat-btn { font-size: 15px; padding: 10px 8px; gap: 6px; }
+  .lobby-cat-btn .lcat-sub { display: none; }
+}
+body.app-phone .lobby-cat-btn .lcat-sub { display: none; }
+
+.lobby-cat-panel { animation: viewIn .28s var(--ease-out); }
+.modes { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.modes.modes-single { grid-template-columns: 1fr; }
 @media (max-width: 760px) { .modes { grid-template-columns: 1fr; } }
+body.app-phone .modes { grid-template-columns: 1fr; }
 .mode {
   border-radius: 24px; padding: 20px; position: relative; overflow: hidden;
   display: flex; flex-direction: column; gap: 12px;
@@ -665,6 +732,7 @@ main.room {
 }
 .mode::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 85% 0%, #ffffff2a, transparent 45%); }
 .mode.live { background: linear-gradient(140deg, #4520c0, #9c2b94 62%, #ef4c88); border: 1.5px solid #ffffff38; }
+.mode.discord { background: linear-gradient(140deg, #272d8f, #5865f2 56%, #9d4edd); border: 1.5px solid #a8b4ff55; }
 .mode.fh { background: linear-gradient(140deg, #0e3360, #0f5c70 62%, #12917e); border: 1.5px solid #ffffff2c; }
 .mode h3 { font-family: 'Fredoka', sans-serif; font-size: 28px; line-height: 1.02; text-shadow: 0 2px 14px #0006; }
 .mode p { font-size: 14px; color: #ffffffe0; }
@@ -677,6 +745,9 @@ main.room {
 .live-cfg { background: #0a061e85; border: 1px solid #ffffff2a; border-radius: 16px; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
 .live-cfg-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #ffe0f0; }
 .live-cfg .switch { background: #0a061ea8; border-color: #ffffff26; padding: 10px 12px; font-size: 13px; border-radius: 12px; }
+.fh-guide { background: #061b2a8c; border: 1px solid #ffffff26; border-radius: 16px; padding: 11px 12px; display: flex; flex-direction: column; gap: 8px; }
+.fh-guide-row { display: flex; align-items: center; gap: 10px; background: #06182699; border: 1px solid #ffffff1a; border-radius: 12px; padding: 9px 11px; font-size: 13px; font-weight: 700; color: #eafcff; }
+.fh-guide-row b { width: 24px; height: 24px; border-radius: 8px; background: rgba(34, 211, 238, .22); color: #8af4ff; display: inline-flex; align-items: center; justify-content: center; font-family: 'Fredoka', sans-serif; font-size: 13px; flex-shrink: 0; }
 
 /* ---------- LISTA GRACZY ---------- */
 .roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
@@ -1141,6 +1212,335 @@ main.room {
 .note-hist { display: flex; flex-direction: column; gap: 5px; max-height: 130px; overflow-y: auto; }
 .note-hist-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #08051a; border: 1px solid #261f58; border-radius: 10px; padding: 5px 8px; font-size: 12px; }
 
+/* ---------- TRYB DISCORD / KAMERA (SIATKA 16:9 + WEBRTC + VAD) ---------- */
+#scr-discord {
+  background: radial-gradient(120% 90% at 50% 0%, #1d144d 0%, #090616 62%);
+}
+.dc-top {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.dc-top-controls {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+}
+.dc-top .btn-dc-on {
+  background: linear-gradient(135deg, #10a36f, #3cf0a5);
+  color: #052116;
+  border: 1px solid #8ff8cb;
+  --sd: #07593c;
+  --gl: rgba(60, 240, 165, .55);
+}
+.dc-top .btn-dc-vad-on {
+  background: linear-gradient(135deg, #22d3ee, #3cf0a5);
+  color: #052116;
+  border: 1px solid #a8fff0;
+  --sd: #0c6270;
+  --gl: rgba(34, 211, 238, .5);
+}
+.dc-stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 24px calc(16px + var(--safe-r)) 32px calc(16px + var(--safe-l));
+  position: relative;
+}
+.dc-feed-bar {
+  display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;
+  min-height: 0; margin-bottom: 6px;
+}
+.dc-last-rev {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12.5px; font-weight: 800; color: var(--amber);
+  background: rgba(20, 14, 48, .9); border: 1px solid rgba(255, 194, 61, .45);
+  padding: 5px 12px; border-radius: 999px; box-shadow: 0 6px 18px rgba(0, 0, 0, .4);
+}
+.dc-grid {
+  --dc-cols: 3;
+  --dc-rows: 2;
+  margin: auto 0;
+  align-self: center;
+  width: 100%;
+  max-width: 1500px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: 28px 16px;
+  padding-bottom: 12px;
+}
+.dc-tile {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(
+    calc((100% - (var(--dc-cols, 3) - 1) * 16px) / var(--dc-cols, 3)),
+    calc((100dvh - 186px - (var(--dc-rows, 2) - 1) * 28px) / var(--dc-rows, 2) * 16 / 9)
+  );
+  max-width: 680px;
+  min-width: 220px;
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
+  border: 2.5px solid var(--line-hi);
+  background: linear-gradient(155deg, #1b1444, #0d0824);
+  box-shadow: 0 14px 34px -10px rgba(0, 0, 0, .72), inset 0 1px 0 rgba(255, 255, 255, .12);
+  transition: border-color .22s ease, box-shadow .22s ease, transform .25s var(--ease-out), opacity .25s ease;
+  overflow: visible;
+}
+.dc-tile.is-off { opacity: .52; filter: grayscale(.35); }
+.dc-tile.is-me { border-color: rgba(255, 79, 163, .65); }
+.dc-tile.is-turn {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 2px var(--amber), 0 0 32px rgba(255, 194, 61, .45), 0 14px 34px -10px rgba(0, 0, 0, .75);
+}
+.dc-tile.is-speaking {
+  border-color: var(--lime);
+  box-shadow: 0 0 0 3px var(--lime), 0 0 28px rgba(60, 240, 165, .58), 0 14px 34px -10px rgba(0, 0, 0, .75);
+}
+.dc-tile.is-turn.is-speaking {
+  border-color: var(--lime);
+  box-shadow: 0 0 0 3px var(--lime), 0 0 0 6px rgba(255, 194, 61, .55), 0 0 34px rgba(60, 240, 165, .55);
+}
+.dc-tile.flash-ok-card { border-color: var(--lime); box-shadow: 0 0 0 4px rgba(60, 240, 165, .45), var(--glow-lime); }
+.dc-tile.flash-no-card { border-color: var(--red); box-shadow: 0 0 0 4px rgba(255, 77, 106, .45); }
+
+.dc-media {
+  position: absolute;
+  inset: 0;
+  border-radius: 17.5px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 42%, #291e63 0%, #130d32 58%, #0a071d 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dc-media::after {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(6, 4, 18, .25) 0%, transparent 34%, transparent 66%, rgba(6, 4, 18, .55) 100%);
+}
+.dc-video {
+  width: 100%; height: 100%; object-fit: cover; display: none;
+  background: #070415;
+}
+.dc-tile.has-video .dc-video { display: block; }
+.dc-tile.is-me .dc-video { transform: scaleX(-1); }
+.dc-av-wrap {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.dc-tile.has-video .dc-av-wrap { display: none; }
+.dc-av {
+  width: clamp(66px, 9.2vw, 108px);
+  height: clamp(66px, 9.2vw, 108px);
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2d236d, #191243);
+  border: 3px solid rgba(167, 139, 250, .55);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .55), 0 0 24px rgba(139, 92, 246, .28);
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(34px, 5vw, 54px);
+  overflow: hidden;
+  transition: transform .22s var(--ease-spring), border-color .22s ease, box-shadow .22s ease;
+}
+.dc-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.dc-tile.is-speaking .dc-av {
+  border-color: var(--lime);
+  box-shadow: 0 0 0 4px rgba(60, 240, 165, .3), 0 0 26px rgba(60, 240, 165, .5);
+  transform: scale(1.05);
+}
+
+/* Plakietka punktów w prawym górnym rogu + korona lidera */
+.dc-score-badge {
+  position: absolute;
+  top: 10px; right: 10px; z-index: 5;
+  display: flex; align-items: baseline; gap: 4px;
+  padding: 5px 11px;
+  border-radius: 13px;
+  background: rgba(11, 7, 32, .86);
+  border: 1.5px solid rgba(255, 194, 61, .52);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .55);
+}
+.dc-score-badge .dc-pts {
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(19px, 2.1vw, 25px);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--amber);
+  text-shadow: 0 0 12px rgba(255, 194, 61, .45);
+}
+.dc-score-badge small {
+  font-size: 11px; font-weight: 800; color: var(--mute); text-transform: uppercase;
+}
+.dc-tile.is-leader .dc-score-badge {
+  border-color: var(--amber);
+  background: linear-gradient(135deg, rgba(58, 38, 8, .92), rgba(18, 11, 38, .92));
+  box-shadow: var(--glow-amber), 0 6px 18px rgba(0, 0, 0, .6);
+}
+.dc-score-badge.score-up {
+  border-color: var(--lime);
+  background: linear-gradient(135deg, rgba(16, 86, 58, .94), rgba(11, 7, 32, .92));
+  box-shadow: var(--glow-lime), 0 6px 18px rgba(0, 0, 0, .6);
+  animation: dcScorePop .75s var(--ease-spring);
+}
+.dc-score-badge.score-up .dc-pts {
+  color: var(--lime);
+  text-shadow: 0 0 14px rgba(60, 240, 165, .65);
+}
+@keyframes dcScorePop {
+  0% { transform: scale(1); }
+  38% { transform: scale(1.16); }
+  100% { transform: scale(1); }
+}
+.dc-crown {
+  position: absolute;
+  top: -19px; left: 50%; transform: translateX(-50%);
+  font-size: 20px; line-height: 1;
+  filter: drop-shadow(0 3px 8px rgba(255, 194, 61, .7));
+  animation: dcCrownFloat 2s ease-in-out infinite;
+  pointer-events: none;
+  display: none;
+}
+.dc-tile.is-leader .dc-crown { display: block; }
+@keyframes dcCrownFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0) rotate(-6deg); }
+  50% { transform: translateX(-50%) translateY(-4px) rotate(6deg); }
+}
+
+/* Lewy górny róg: badge TURA + numer kolejki */
+.dc-top-badges {
+  position: absolute;
+  top: 10px; left: 10px; z-index: 5;
+  display: flex; align-items: center; gap: 6px;
+}
+.dc-turn-tag {
+  display: none; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: 999px;
+  background: linear-gradient(135deg, #ffad1f, #ff4fa3);
+  color: #1c0c00; font-size: 11px; font-weight: 900; letter-spacing: .04em;
+  box-shadow: var(--glow-amber);
+}
+.dc-tile.is-turn .dc-turn-tag { display: inline-flex; }
+
+/* Akcje sędziowania ✓ / ✕ (subtelne przy hoverze na PC, widoczne na mobile) */
+.dc-judge {
+  position: absolute;
+  top: 10px; left: 10px; z-index: 6;
+  display: flex; gap: 6px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity .18s ease, transform .18s var(--ease-out);
+  pointer-events: none;
+}
+.dc-tile.is-turn .dc-judge { top: 42px; }
+.dc-tile:hover .dc-judge,
+.dc-tile:focus-within .dc-judge {
+  opacity: 1; transform: none; pointer-events: auto;
+}
+@media (hover: none) {
+  .dc-judge { opacity: .94; transform: none; pointer-events: auto; }
+}
+body.app-phone .dc-judge { opacity: .94; transform: none; pointer-events: auto; }
+.dc-jbtn {
+  width: 36px; height: 36px; border-radius: 12px; border: 1.5px solid transparent;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 900; color: #fff;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .55);
+  transition: transform .12s var(--ease-spring), filter .15s ease;
+}
+.dc-jbtn:active { transform: scale(.9); }
+.dc-jbtn:disabled { opacity: .35; pointer-events: none; }
+.dc-jbtn.ok { background: linear-gradient(135deg, #10a36f, #3cf0a5); color: #052116; border-color: #a6ffda; }
+.dc-jbtn.no { background: linear-gradient(135deg, #c92647, #ff4d6a); border-color: #ffa3b2; }
+
+/* Lewy dolny róg: nick + ikonki mikrofonu i kamery */
+.dc-nick-badge {
+  position: absolute;
+  bottom: 22px; left: 10px; z-index: 5;
+  display: inline-flex; align-items: center; gap: 6px;
+  max-width: 55%;
+  padding: 4px 10px;
+  border-radius: 11px;
+  background: rgba(9, 6, 22, .86);
+  border: 1px solid rgba(167, 139, 250, .32);
+  font-size: 12px; font-weight: 800; color: #fff;
+}
+.dc-nick-txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dc-ic { font-size: 11px; flex-shrink: 0; color: var(--dim); }
+.dc-ic.on { color: var(--lime); }
+.dc-ic.cam-on { color: var(--cyan); }
+
+/* Dolna belka/pigułka z hasłem — wyśrodkowana, lekko nachodząca na dolną ramkę */
+.dc-word-pill {
+  position: absolute;
+  left: 50%; bottom: -15px;
+  transform: translateX(-50%);
+  z-index: 7;
+  max-width: calc(100% - 20px);
+  min-width: 140px;
+  padding: 7px 18px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ffffff, #ebe4ff);
+  color: #130a32;
+  border: 2px solid var(--vio-hi);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .65), 0 0 18px rgba(139, 92, 246, .45);
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: clamp(14px, 1.85vw, 21px);
+  line-height: 1.12;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dc-word-pill.is-secret {
+  background: linear-gradient(135deg, #2d1466, #180b3b);
+  color: #ff9fcb;
+  border-color: var(--pink);
+  letter-spacing: .2em;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .65), var(--glow-pink);
+}
+.dc-word-pill.is-wait {
+  background: #120d30;
+  color: var(--mute);
+  border-style: dashed;
+  border-color: var(--line-hi);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Dolny pasek akcji na telefonie (SIADŁO / PASS zawsze pod kciukiem) */
+.dc-mobile-bar {
+  display: none;
+  flex-shrink: 0;
+  padding: 10px 12px calc(10px + var(--safe-b));
+  background: linear-gradient(180deg, #1b1246, #0d0824);
+  border-top: 1.5px solid var(--line-hi);
+  gap: 10px;
+}
+.dc-mobile-bar .btn { flex: 1; min-height: 50px; font-size: 16px; }
+
+@media (max-width: 1020px) {
+  .dc-top-controls .lbl-txt { display: none; }
+}
+@media (max-width: 760px) {
+  .dc-stage { padding: 18px 12px 26px; }
+  .dc-grid { gap: 28px 12px; margin: 0; }
+  .dc-tile { width: 100%; max-width: 460px; min-width: 0; }
+  .dc-top .dc-game-desktop { display: none; }
+  .dc-mobile-bar { display: flex; }
+  .dc-word-pill { font-size: 17px; padding: 6px 15px; }
+}
+body.app-phone #scr-discord {
+  max-width: 440px; left: 50%; right: auto; width: 100%; transform: translateX(-50%);
+  border-left: 1px solid var(--line-hi); border-right: 1px solid var(--line-hi);
+}
+body.app-phone .dc-grid { gap: 24px 10px; margin: 0; }
+body.app-phone .dc-tile { width: 100%; max-width: 100%; min-width: 0; }
+body.app-phone .dc-top .dc-game-desktop { display: none; }
+body.app-phone .dc-mobile-bar { display: flex; }
+
 /* ---------- NA CZOLE ---------- */
 .fh-center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 20px; text-align: center; overflow: auto; }
 .fh-center h2 { font-family: 'Fredoka', sans-serif; font-size: 32px; }
@@ -1265,47 +1665,41 @@ main.room {
   </div>
 
   <div class="start-inner">
-    <div class="start-col">
-      <div class="hero reveal" style="--d:.05s">
+    <div id="resume-box" class="resume hidden"></div>
+
+    <div class="start-stepper" aria-label="Etapy wejścia do gry">
+      <div id="st-ind-1" class="st-pill on"><span class="st-n">1</span><span>Profil</span></div>
+      <div id="st-ind-2" class="st-pill"><span class="st-n">2</span><span>Pokój</span></div>
+    </div>
+
+    <!-- KROK 1: LOGOWANIE / PROFIL -->
+    <div id="start-step-1" class="start-step">
+      <div class="hero reveal" style="--d:.04s">
         <div class="hero-deco" aria-hidden="true"><span class="float-emo">🤫</span><span class="float-emo">🔥</span><span class="float-emo">🎉</span></div>
         <div class="logo-row">
           <div class="logo-badge" aria-hidden="true">📱</div>
           <h1><span class="h-main">CZÓŁKO</span><span class="h-io">.IO</span></h1>
           <span id="ver-pill" class="ver-pill">1.1</span>
         </div>
-        <p class="hero-tag">Imprezowa gra dla całej ekipy. <b>Wszyscy widzą Twoje hasło — oprócz Ciebie.</b> Zgadnij je, zanim zrobi to reszta!</p>
+        <p class="hero-tag">Imprezowa gra dla całej ekipy. <b>Wszyscy widzą Twoje hasło — oprócz Ciebie.</b></p>
         <div class="feat-row">
-          <span class="chip vio">📱💻 Telefon + PC</span>
+          <span class="chip vio">🎥 Tryb Discord</span>
           <span class="chip cyan">⚡ Na żywo</span>
           <span class="chip lime">🔐 CryptoGuard</span>
           <span class="chip pink">🎉 Bez instalacji</span>
         </div>
       </div>
 
-      <div class="mode-show reveal" style="--d:.16s">
-        <div class="ms-card live">
-          <span class="ms-tag">Online</span>
-          <span class="ms-ico">🤫</span>
-          <b>Ekipa Live</b>
-          <small>Hasła całej ekipy na żywo — swoje masz ukryte.</small>
-        </div>
-        <div class="ms-card fh">
-          <span class="ms-tag">Klasyk</span>
-          <span class="ms-ico">📱</span>
-          <b>Na czole</b>
-          <small>Telefon na czoło, ekipa tłumaczy, Ty zgadujesz.</small>
-        </div>
+      <div id="invite-room-chip" class="invite-chip hidden">
+        <i class="fa-solid fa-link" style="color:var(--cyan)"></i>
+        <span>Dołączasz do pokoju: <b id="invite-room-code"></b></span>
       </div>
-    </div>
 
-    <div class="start-col">
-      <div id="resume-box" class="resume hidden"></div>
-
-      <div class="card stack reveal" style="--d:.26s">
+      <div class="card stack reveal" style="--d:.12s">
         <div class="step-head">
           <span class="step-num">1</span>
           <div>
-            <div class="kicker" style="color:#c4b5fd">Profil</div>
+            <div class="kicker" style="color:#c4b5fd">Krok 1 • Profil</div>
             <h2 style="font-size:22px">Jak Cię wołać?</h2>
           </div>
         </div>
@@ -1322,14 +1716,31 @@ main.room {
           <button class="btn btn-ghost btn-sm" data-act="pickFile"><i class="fa-solid fa-camera"></i> Własne zdjęcie / GIF</button>
           <button id="clear-img" class="btn btn-dark btn-sm hidden" data-act="clearImg"><i class="fa-solid fa-xmark"></i> Usuń zdjęcie</button>
         </div>
+        <button id="btn-step-next" class="btn btn-pri btn-xl btn-block cta-pulse" data-act="startNext">
+          <span>Dalej</span> <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- KROK 2: WYBÓR POKOJU -->
+    <div id="start-step-2" class="start-step hidden">
+      <div class="profile-bar">
+        <span id="step2-av" class="av sm"></span>
+        <div class="pb-info">
+          <div class="pb-kicker">Twój profil</div>
+          <div id="step2-nick" class="pb-nick">Gracz</div>
+        </div>
+        <button id="btn-step-back" class="btn btn-ghost btn-sm" data-act="startBack">
+          <i class="fa-solid fa-arrow-left"></i> Zmień profil
+        </button>
       </div>
 
-      <div class="card stack reveal" style="--d:.36s">
+      <div class="card stack">
         <div class="step-head">
           <span class="step-num s2">2</span>
           <div>
-            <div class="kicker" style="color:#9ef0ff">Pokój</div>
-            <h2 style="font-size:22px">Zbierz ekipę</h2>
+            <div class="kicker" style="color:#9ef0ff">Krok 2 • Pokój</div>
+            <h2 style="font-size:22px">Stwórz lub dołącz do ekipy</h2>
           </div>
         </div>
         <div class="seg">
@@ -1338,15 +1749,15 @@ main.room {
         </div>
         <div id="box-create" class="stack" style="gap:8px">
           <div class="row between">
-            <label class="lbl" for="code-create" style="margin:0">5-cyfrowy kod pokoju</label>
+            <label class="lbl" for="code-create" style="margin:0">Kod pokoju (3–6 znaków)</label>
             <button class="btn btn-ghost btn-sm" data-act="rollCode"><i class="fa-solid fa-dice"></i> Losuj</button>
           </div>
-          <input id="code-create" class="input code-input" maxlength="5" inputmode="numeric" pattern="[0-9]{5}" placeholder="00000" autocomplete="off" spellcheck="false" style="color:var(--amber)">
-          <p class="dim" style="font-size:12px;text-align:center">Zawsze dokładnie <b style="color:#fff">5 cyfr</b> (np. <b style="color:#fff">48291</b>). Podasz go znajomym.</p>
+          <input id="code-create" class="input code-input" maxlength="6" inputmode="text" autocapitalize="characters" placeholder="EKIPA" autocomplete="off" spellcheck="false" style="color:var(--amber)">
+          <p class="dim" style="font-size:12px;text-align:center">Wpisz lub wylosuj <b style="color:#fff">3–6 znaków</b> (litery lub cyfry, np. <b style="color:#fff">EKIPA</b> albo <b style="color:#fff">48291</b>).</p>
         </div>
         <div id="box-join" class="stack hidden" style="gap:8px">
-          <label class="lbl" for="code-join" style="text-align:center">5-cyfrowy kod od znajomego</label>
-          <input id="code-join" class="input code-input" maxlength="5" inputmode="numeric" pattern="[0-9]{5}" placeholder="00000" autocomplete="off" spellcheck="false" style="color:var(--lime)">
+          <label class="lbl" for="code-join" style="text-align:center">Kod pokoju od znajomego (3–6 znaków)</label>
+          <input id="code-join" class="input code-input" maxlength="6" inputmode="text" autocapitalize="characters" placeholder="EKIPA" autocomplete="off" spellcheck="false" style="color:var(--lime)">
         </div>
         <button id="enter-btn" class="btn btn-go btn-xl btn-block cta-pulse" data-act="enter"><span id="enter-label">STWÓRZ POKÓJ!</span> <i class="fa-solid fa-play"></i></button>
         <div id="enter-status-wrap" class="enter-status-wrap hidden">
@@ -1354,8 +1765,9 @@ main.room {
           <button id="enter-cancel" class="btn btn-dark btn-xs" data-act="cancelEnter"><i class="fa-solid fa-xmark"></i> Anuluj łączenie</button>
         </div>
       </div>
-      <p class="start-foot">CZÓŁKO 1.1 • działa w przeglądarce — wystarczy kod pokoju</p>
     </div>
+
+    <p class="start-foot">CZÓŁKO 1.1 • działa w przeglądarce — wystarczy kod pokoju</p>
   </div>
 </section>
 
@@ -1409,59 +1821,129 @@ main.room {
     <!-- ZAKŁADKA 1: LOBBY -->
     <div id="view-lobby" class="stack" style="gap:16px">
       <div id="live-banner" class="banner hidden">
-        <span style="font-size:28px">🎮</span>
+        <span id="live-banner-ico" style="font-size:28px">🎮</span>
         <div class="grow">
-          <div class="kicker" style="color:var(--lime)">Ekipa Live aktywna!</div>
-          <div style="font-weight:700;font-size:14px">Gracze mają już wylosowane hasła — dołącz i wybierz swój widok (Tel / PC).</div>
+          <div id="live-banner-title" class="kicker" style="color:var(--lime)">Ekipa Live aktywna!</div>
+          <div id="live-banner-desc" style="font-weight:700;font-size:14px">Gracze mają już wylosowane hasła — dołącz i wybierz swój widok (Tel / PC).</div>
         </div>
-        <button class="btn btn-go btn-sm" data-act="joinLive"><i class="fa-solid fa-play"></i> Dołącz</button>
+        <button id="live-banner-btn" class="btn btn-go btn-sm" data-act="joinLive"><i class="fa-solid fa-play"></i> Dołącz</button>
       </div>
 
-      <div class="modes">
-        <div class="mode live">
-          <span class="deco">🤫</span>
-          <div>
-            <div class="kicker" style="color:#ffd6ea">Tryb główny • Online</div>
-            <h3>Ekipa Live</h3>
-          </div>
-          <p>Jedna wspólna sesja dla wszystkich — <b>każdy sam wybiera układ Telefon lub Komputer</b>. Widzisz hasła pozostałych graczy oprócz swojego.</p>
-          <div class="steps">
-            <div><b>👀</b>Widzisz innych</div>
-            <div><b>📱💻</b>Tel + PC razem</div>
-            <div><b>🔥</b>Siadło / Pass</div>
-          </div>
+      <div class="lobby-cat-tabs" role="tablist" aria-label="Kategoria trybów gry">
+        <button id="lcat-online" class="lobby-cat-btn is-online on" role="tab" aria-selected="true" data-act="lobbyCat" data-c="online">
+          <span>🌐 Online</span>
+          <span class="lcat-sub">Tryb Discord</span>
+          <span class="lcat-live-dot" aria-hidden="true"></span>
+        </button>
+        <button id="lcat-local" class="lobby-cat-btn is-local" role="tab" aria-selected="false" data-act="lobbyCat" data-c="local">
+          <span>🏠 Local</span>
+          <span class="lcat-sub">Live • Na czole</span>
+          <span class="lcat-live-dot" aria-hidden="true"></span>
+        </button>
+      </div>
 
-          <div class="live-cfg" id="live-settings-panel">
-            <div class="live-cfg-head">
-              <span><i class="fa-solid fa-sliders"></i> Ustawienia Ekipa Live</span>
-              <span id="live-cfg-who" style="color:#ffd77a">Tylko Host</span>
+      <!-- ZAKŁADKA ONLINE: TRYB DISCORD (KAMERKI + AWATARY) -->
+      <div id="lpanel-online" class="lobby-cat-panel" role="tabpanel" aria-labelledby="lcat-online">
+        <div class="modes modes-single">
+          <div class="mode discord">
+            <span class="deco">🎥</span>
+            <div>
+              <div class="kicker" style="color:#c8d0ff">Online • Kamerki P2P + Awatary</div>
+              <h3>Tryb Discord</h3>
             </div>
-            <button class="switch" data-act="liveSetting" data-k="liveRandomOrder" id="sw-liveOrder">
-              <span>🎲 Losuj kolejność graczy (kolejka tur)</span>
-              <span class="tg"></span>
-            </button>
-            <button class="switch" data-act="liveSetting" data-k="liveConfirmTurn" id="sw-liveConfirm">
-              <span>✋ Wymagaj potwierdzenia przed następnym</span>
-              <span class="tg"></span>
-            </button>
-            <button class="switch" data-act="liveSetting" data-k="peerJudge" id="sw-livePeer">
-              <span>✅ Ekipa może zaliczać karty innych</span>
-              <span class="tg"></span>
-            </button>
-          </div>
+            <p>Kafelki <b>16:9 z kamerkami P2P (WebRTC) lub okrągłymi awatarami</b>, zieloną ramką mówienia 🎙️, punktami z koroną lidera 👑 i dużą belką z hasłem na dole!</p>
+            <div class="steps">
+              <div><b>🎥</b>Kamerki P2P</div>
+              <div><b>🎙️</b>Ramka mówienia</div>
+              <div><b>👑</b>Siatka 16:9</div>
+            </div>
 
-          <div id="live-cta"></div>
+            <div class="live-cfg">
+              <div class="live-cfg-head">
+                <span><i class="fa-solid fa-sliders"></i> Ustawienia sesji Online</span>
+                <span class="js-live-cfg-who" style="color:#ffd77a">Tylko Host</span>
+              </div>
+              <button class="switch js-sw-order" data-act="liveSetting" data-k="liveRandomOrder">
+                <span>🎲 Losuj kolejność graczy (kolejka tur)</span>
+                <span class="tg"></span>
+              </button>
+              <button class="switch js-sw-confirm" data-act="liveSetting" data-k="liveConfirmTurn">
+                <span>✋ Wymagaj potwierdzenia przed następnym</span>
+                <span class="tg"></span>
+              </button>
+              <button class="switch js-sw-peer" data-act="liveSetting" data-k="peerJudge">
+                <span>✅ Ekipa może zaliczać karty innych</span>
+                <span class="tg"></span>
+              </button>
+            </div>
+
+            <div id="discord-cta"></div>
+          </div>
         </div>
+      </div>
 
-        <div class="mode fh">
-          <span class="deco">📱</span>
-          <div>
-            <div class="kicker" style="color:#b8f3ff">Tryb klasyczny</div>
-            <h3>Na czole</h3>
+      <!-- ZAKŁADKA LOCAL: EKIPA LIVE + NA CZOLE -->
+      <div id="lpanel-local" class="lobby-cat-panel hidden" role="tabpanel" aria-labelledby="lcat-local">
+        <div class="modes">
+          <div class="mode live">
+            <span class="deco">🤫</span>
+            <div>
+              <div class="kicker" style="color:#ffd6ea">Local • Wspólna gra</div>
+              <h3>Ekipa Live</h3>
+            </div>
+            <p>Jedna wspólna sesja dla wszystkich — <b>każdy sam wybiera układ Telefon lub Komputer</b>. Widzisz hasła pozostałych graczy oprócz swojego.</p>
+            <div class="steps">
+              <div><b>👀</b>Widzisz innych</div>
+              <div><b>📱💻</b>Tel + PC razem</div>
+              <div><b>🔥</b>Siadło / Pass</div>
+            </div>
+
+            <div class="live-cfg" id="live-settings-panel">
+              <div class="live-cfg-head">
+                <span><i class="fa-solid fa-sliders"></i> Ustawienia Ekipa Live</span>
+                <span id="live-cfg-who" class="js-live-cfg-who" style="color:#ffd77a">Tylko Host</span>
+              </div>
+              <button class="switch js-sw-order" data-act="liveSetting" data-k="liveRandomOrder" id="sw-liveOrder">
+                <span>🎲 Losuj kolejność graczy (kolejka tur)</span>
+                <span class="tg"></span>
+              </button>
+              <button class="switch js-sw-confirm" data-act="liveSetting" data-k="liveConfirmTurn" id="sw-liveConfirm">
+                <span>✋ Wymagaj potwierdzenia przed następnym</span>
+                <span class="tg"></span>
+              </button>
+              <button class="switch js-sw-peer" data-act="liveSetting" data-k="peerJudge" id="sw-livePeer">
+                <span>✅ Ekipa może zaliczać karty innych</span>
+                <span class="tg"></span>
+              </button>
+            </div>
+
+            <div id="live-cta" style="margin-top:auto"></div>
           </div>
-          <p>Jeden telefon przyłożony do czoła, ekipa podpowiada! <b>Bez limitu czasu (∞)</b> — grajcie ile chcecie, a punkty i historia lecą prosto do rankingu.</p>
-          <div style="margin-top:auto">
-            <button class="btn btn-cyan btn-block" data-act="fhOpen"><i class="fa-solid fa-mobile-screen-button" style="transform:rotate(-90deg)"></i> Graj na czole</button>
+
+          <div class="mode fh">
+            <span class="deco">📱</span>
+            <div>
+              <div class="kicker" style="color:#b8f3ff">Local • Klasyk</div>
+              <h3>Na czole</h3>
+            </div>
+            <p>Jeden telefon przyłożony do czoła, ekipa podpowiada! <b>Bez limitu czasu (∞)</b> — grajcie ile chcecie, a punkty i historia lecą prosto do rankingu.</p>
+            <div class="steps">
+              <div><b>📱</b>Telefon na czoło</div>
+              <div><b>∞</b>Bez limitu czasu</div>
+              <div><b>🏆</b>Wspólny ranking</div>
+            </div>
+            <div class="fh-guide">
+              <div class="live-cfg-head" style="color:#a8f3ff">
+                <span><i class="fa-solid fa-bolt"></i> Szybkie zasady</span>
+                <span>Czas: ∞</span>
+              </div>
+              <div class="fh-guide-row"><b>1</b><span>Przyłóż telefon poziomo do czoła</span></div>
+              <div class="fh-guide-row"><b>2</b><span>Ekipa tłumaczy hasło słowami lub gestami</span></div>
+              <div class="fh-guide-row"><b>3</b><span>Pochyl w dół lub kliknij ✓ — punkty wpadają od razu</span></div>
+            </div>
+            <div style="margin-top:auto">
+              <button class="btn btn-cyan btn-xl btn-block" data-act="fhOpen"><i class="fa-solid fa-mobile-screen-button" style="transform:rotate(-90deg)"></i> Graj na czole</button>
+            </div>
           </div>
         </div>
       </div>
@@ -1710,6 +2192,51 @@ main.room {
 </section>
 
 <!-- ========================================================================= -->
+<!-- TRYB DISCORD / KAMERA (SIATKA 16:9 + WEBRTC P2P + VOICE ACTIVITY)         -->
+<!-- ========================================================================= -->
+<section id="scr-discord" class="overlay hidden" aria-label="Tryb Discord — Kamerki i Awatary">
+  <div class="ov-top dc-top">
+    <button class="btn btn-no btn-sm" data-act="exitLive" title="Wyjdź do lobby"><i class="fa-solid fa-right-from-bracket"></i><span class="lbl-txt"> Do lobby</span></button>
+    <div class="ov-title">
+      Tryb Discord <span class="chip cyan" style="font-size:10px;padding:1px 6px;vertical-align:middle">16:9 LIVE</span>
+      <small id="dc-sub">KOD • 0 w grze</small>
+    </div>
+
+    <div class="dc-top-controls">
+      <button id="dc-btn-cam" class="btn btn-ghost btn-sm" data-act="dcToggleCam" title="Włącz lub wyłącz kamerkę P2P">
+        <i class="fa-solid fa-video-slash"></i><span class="lbl-txt"> Kamerka</span>
+      </button>
+      <button id="dc-btn-mic" class="btn btn-ghost btn-sm" data-act="dcToggleMic" title="Wykrywanie głosu (tylko lokalna ramka mówienia, bez przesyłania audio)">
+        <i class="fa-solid fa-microphone-slash"></i><span class="lbl-txt"> Ramka mówienia</span>
+      </button>
+      <button id="dc-btn-dev" class="btn btn-ghost btn-sm" data-act="dcPickCam" title="Wybierz kamerę" aria-label="Wybierz kamerę">
+        <i class="fa-solid fa-gear"></i>
+      </button>
+      <button id="dc-pass-top" class="btn btn-no btn-sm dc-game-desktop" data-act="mine" data-r="pass" title="Spasuj swoje hasło">👎 PASS</button>
+      <button id="dc-ok-top" class="btn btn-go btn-sm dc-game-desktop" data-act="mine" data-r="ok" title="Zaliczone — zgadłem hasło!">🔥 SIADŁO!</button>
+      <button class="btn btn-ghost btn-sm" data-act="quickAdd" title="Dorzuć hasło" aria-label="Dorzuć hasło"><i class="fa-solid fa-plus"></i></button>
+      <button id="dc-deal" class="btn btn-ghost btn-sm hidden" data-act="dealMissing" title="Rozdaj brakujące hasła" aria-label="Rozdaj brakujące hasła"><i class="fa-solid fa-shuffle"></i></button>
+      <button id="dc-end" class="btn btn-amber btn-sm hidden" data-act="endLive" title="Zakończ rundę i pokaż Podium" aria-label="Zakończ rundę"><i class="fa-solid fa-flag-checkered"></i></button>
+    </div>
+  </div>
+
+  <div id="dc-turn-bar" class="turn-bar hidden"></div>
+
+  <div id="dc-stage" class="dc-stage">
+    <div id="dc-feed-bar" class="dc-feed-bar">
+      <span id="dc-clock" class="chip cyan" style="font-size:11px">⏱ 00:00</span>
+      <span id="dc-last-rev" class="dc-last-rev hidden"></span>
+    </div>
+    <div id="dc-grid" class="dc-grid" data-cols="3" data-rows="2"></div>
+  </div>
+
+  <div class="dc-mobile-bar" id="dc-mobile-bar">
+    <button id="dc-pass-mob" class="btn btn-no" data-act="mine" data-r="pass">👎 PASS</button>
+    <button id="dc-ok-mob" class="btn btn-go" data-act="mine" data-r="ok">🔥 SIADŁO!</button>
+  </div>
+</section>
+
+<!-- ========================================================================= -->
 <!-- TRYB KLASYCZNY: NA CZOLE                                                  -->
 <!-- ========================================================================= -->
 <section id="scr-fh" class="overlay hidden"></section>
@@ -1767,10 +2294,10 @@ const ROOT = 'czolko_io_pl_v102';
 
 const GIF_MAX_BYTES = 350 * 1024;      // bezpieczny limit sieciowy 350 KB dla animowanego GIF-a
 const AVATAR_MAX_CHARS = 520000;
-const CODE_MIN = 5;
-const CODE_MAX = 5;
+const CODE_MIN = 3;
+const CODE_MAX = 6;
 const CODE_GEN_LEN = 5;
-const CODE_REGEX = /^\d{5}$/;
+const CODE_REGEX = /^[A-Z0-9]{3,6}$/;
 const REACT_EMOJIS = ['🔥', '😂', '🎉', '👏', '💀', '🤯'];
 
 const HOST_ACCEPT_TIMEOUT_MS = 20000;
@@ -1870,33 +2397,55 @@ const store = {
   del(k) { try { localStorage.removeItem(k); } catch {} }
 };
 
-/* ---------- NORMALIZACJA I WALIDACJA KODU POKOJU (ZAWSZE 5 CYFR) ---------- */
+/* ---------- NORMALIZACJA I WALIDACJA KODU POKOJU (3–6 ZNAKÓW A-Z / 0-9) ---------- */
 function randCode() {
-  const ch = '0123456789';
+  const ch = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   let s = '';
   for (let i = 0; i < CODE_GEN_LEN; i++) s += ch[rand(ch.length)];
   return s;
 }
 
 function sanitizeCodeInput(v) {
-  return String(v || '').replace(/\D+/g, '').slice(0, CODE_MAX);
+  return String(v || '').toUpperCase().replace(/[^A-Z0-9]+/g, '').slice(0, CODE_MAX);
 }
 
 function validateRoomCode(raw) {
-  const compact = String(raw || '').replace(/\s+/g, '');
+  const compact = String(raw || '').toUpperCase().replace(/\s+/g, '');
   if (!compact) {
-    return { ok: false, code: '', err: 'Wpisz 5-cyfrowy kod pokoju (same cyfry 0–9).' };
+    return { ok: false, code: '', err: 'Wpisz kod pokoju (3–6 znaków: litery lub cyfry).' };
   }
-  if (/\D/.test(compact)) {
-    return { ok: false, code: '', err: 'Kod pokoju może zawierać wyłącznie cyfry 0–9.' };
+  if (/[^A-Z0-9]/.test(compact)) {
+    return { ok: false, code: '', err: 'Kod pokoju może zawierać tylko litery A–Z i cyfry 0–9.' };
   }
-  if (compact.length !== CODE_MIN) {
-    return { ok: false, code: '', err: 'Kod pokoju musi mieć dokładnie 5 cyfr.' };
+  if (compact.length < CODE_MIN || compact.length > CODE_MAX) {
+    return { ok: false, code: '', err: `Kod pokoju musi mieć od ${CODE_MIN} do ${CODE_MAX} znaków.` };
   }
   if (!CODE_REGEX.test(compact)) {
-    return { ok: false, code: '', err: 'Nieprawidłowy kod pokoju (wymagane 5 cyfr).' };
+    return { ok: false, code: '', err: 'Nieprawidłowy kod pokoju (3–6 znaków).' };
   }
   return { ok: true, code: compact, err: '' };
+}
+
+function validateNickInput(raw) {
+  const clean = String(raw || '').replace(/\s+/g, ' ').trim().slice(0, 14);
+  if (clean.length < 2) {
+    return { ok: false, nick: clean, err: 'Wpisz nick (min. 2 znaki) 🙂' };
+  }
+  return { ok: true, nick: clean, err: '' };
+}
+
+function computeLobbyModePanelState(lobbyCat, liveState) {
+  const cat = lobbyCat === 'local' ? 'local' : 'online';
+  const liveOn = Boolean(liveState && liveState.on);
+  const activeVariant = liveOn ? (liveState.variant === 'discord' ? 'discord' : 'live') : '';
+  return {
+    cat,
+    showOnlinePanel: cat === 'online',
+    showLocalPanel: cat === 'local',
+    onlineHasLive: activeVariant === 'discord',
+    localHasLive: activeVariant === 'live',
+    bannerAction: activeVariant === 'discord' ? 'joinDiscord' : 'joinLive'
+  };
 }
 
 function haptic(pattern = 14) {
@@ -2549,6 +3098,9 @@ let sumTimers = [];
 
 const ui = {
   tab: 'lobby',
+  lobbyCat: 'online',
+  startStep: 1,
+  inviteCode: '',
   authMode: 'create',
   cat: CATS[0],
   spoiler: false,
@@ -2558,7 +3110,9 @@ const ui = {
   appView: store.get('cz11_view', null) || (typeof window !== 'undefined' && window.innerWidth <= 760 ? 'phone' : 'pc'),
   layoutPref: 'auto',
   devicePickedAt: 0,
-  drawerOpen: false
+  drawerOpen: false,
+  discordView: false,
+  discordVariantSyncAt: 0
 };
 
 /* ============================================================================
@@ -2641,7 +3195,7 @@ function attachMqtt(c, code) {
   c.on('error', () => {});
 
   return new Promise(res => {
-    c.subscribe([`${net.base}/state`, `${net.base}/act`, `${net.base}/av/+`], { qos: 1 }, () => res());
+    c.subscribe([`${net.base}/state`, `${net.base}/act`, `${net.base}/av/+`, `${net.base}/rtc`], { qos: 1 }, () => res());
   });
 }
 
@@ -2810,6 +3364,11 @@ async function handleIncoming(sub, txt, retained) {
       return;
     }
     await onAct(m);
+  } else if (sub === 'rtc') {
+    let m;
+    try { m = JSON.parse(txt); } catch { return; }
+    if (!m || typeof m.t !== 'string' || typeof m.from !== 'string') return;
+    dcHandleRtc(m);
   } else if (sub.startsWith('av/')) {
     const id = sub.slice(3);
     if (!txt) { delete net.avatars[id]; }
@@ -3161,7 +3720,7 @@ function cancelRoomConnect() {
 }
 
 function emptyLiveState() {
-  return { on: false, started: 0, base: {}, settings: { randomOrder: false, confirmTurn: false }, order: [], turnIdx: 0 };
+  return { on: false, variant: 'live', started: 0, base: {}, settings: { randomOrder: false, confirmTurn: false }, order: [], turnIdx: 0 };
 }
 
 function newState(code) {
@@ -3209,7 +3768,7 @@ function mkPlayer(info, id) {
 
 function setEnterBusy(on, txt = '') {
   $('#enter-btn').disabled = on;
-  $('#enter-label').textContent = on ? 'Łączę…' : (ui.authMode === 'create' ? 'STWÓRZ POKÓJ!' : 'DOŁĄCZ DO POKOJU!');
+  $('#enter-label').textContent = on ? 'Łączę…' : (ui.authMode === 'create' ? 'STWÓRZ POKÓJ!' : 'DOŁĄCZ!');
   $('#enter-status').textContent = txt;
   $('#enter-status-wrap').classList.toggle('hidden', !on && !txt);
   $('#enter-cancel').classList.toggle('hidden', !on);
@@ -3505,9 +4064,15 @@ function resetLocal() {
   stopConfetti();
   const feed = $('#live-feed');
   if (feed) feed.innerHTML = '';
+  dcStopAllMedia(false);
+  ui.discordView = false;
+  ui.discordVariantSyncAt = 0;
+  ui.startStep = 1;
+  const dcGrid = $('#dc-grid');
+  if (dcGrid) dcGrid.innerHTML = '';
   fhStop(true);
   keepAwake(false);
-  ['#scr-live', '#scr-sum', '#scr-fh', '#device-picker'].forEach(s => $(s).classList.add('hidden'));
+  ['#scr-live', '#scr-discord', '#scr-sum', '#scr-fh', '#device-picker'].forEach(s => $(s).classList.add('hidden'));
   closeModal();
   $('#scr-room').classList.add('hidden');
   $('#scr-start').classList.remove('hidden');
@@ -3590,6 +4155,9 @@ function loopTick() {
   }
   const lc = $('#live-clock');
   if (lc && S.live && S.live.on) lc.textContent = '⏱ ' + fmtClock(now - (S.live.started || now));
+  const dcc = $('#dc-clock');
+  if (dcc && S.live && S.live.on) dcc.textContent = '⏱ ' + fmtClock(now - (S.live.started || now));
+  if (dc.active) dcPruneStaleSpeaking(now);
 }
 
 /* ============================================================================
@@ -3964,8 +4532,9 @@ function hostOnly() {
   return true;
 }
 
-function hostStartLive() {
+function hostStartLive(variant = 'live') {
   if (!hostOnly()) return;
+  const modeVariant = variant === 'discord' ? 'discord' : 'live';
   if (!S.words.length) {
     toast('Worek jest pusty — dorzuć hasła albo kliknij +25 gotowych!', 'warn', 3200);
     ui.tab = 'words';
@@ -3988,6 +4557,7 @@ function hostStartLive() {
   const order = cfg.randomOrder ? shuffleArray(liveIds) : [];
   S.live = {
     on: true,
+    variant: modeVariant,
     started: Date.now(),
     base,
     settings: cfg,
@@ -3997,17 +4567,24 @@ function hostStartLive() {
   net.liveNotifiedAt = S.live.started;
   net.liveExitPendingUntil = 0;
   net.lastTurnId = null;
-  ui.devicePickedAt = 0;
+  ui.discordView = modeVariant === 'discord';
+  ui.discordVariantSyncAt = S.live.started;
+  ui.devicePickedAt = modeVariant === 'discord' ? S.live.started : 0;
   fillMissing();
   hostPublish();
-  showRoundIntro('EKIPA LIVE!', cfg.randomOrder ? 'Kolejność wylosowana' : 'Runda startuje');
-  toast(
-    cfg.randomOrder
-      ? '🎲 Ekipa Live — kolejność wylosowana!'
-      : '🎮 Ekipa Live wystartowała!',
-    'ok',
-    2800
-  );
+  if (modeVariant === 'discord') {
+    showRoundIntro('TRYB DISCORD!', cfg.randomOrder ? 'Kamerki 16:9 • Kolejność wylosowana' : 'Kamerki & Awatary 16:9');
+    toast('🎥 Tryb Discord wystartował! Możesz włączyć kamerkę lub ramkę mówienia.', 'ok', 3000);
+  } else {
+    showRoundIntro('EKIPA LIVE!', cfg.randomOrder ? 'Kolejność wylosowana' : 'Runda startuje');
+    toast(
+      cfg.randomOrder
+        ? '🎲 Ekipa Live — kolejność wylosowana!'
+        : '🎮 Ekipa Live wystartowała!',
+      'ok',
+      2800
+    );
+  }
   if (liveIds.length < 2) {
     toast('Podaj znajomym kod ' + net.code + ' — hasła pojawią się tu na żywo.', 'info', 3000);
   }
@@ -4250,11 +4827,21 @@ function render() {
 
   if (S.live && S.live.on && S.live.started && S.live.started > net.liveNotifiedAt) {
     net.liveNotifiedAt = S.live.started;
-    if (Math.abs(Date.now() - S.live.started) < 10000) showRoundIntro('EKIPA LIVE!', 'Runda startuje');
+    const isDc = S.live.variant === 'discord';
+    if (ui.discordVariantSyncAt !== S.live.started) {
+      ui.discordVariantSyncAt = S.live.started;
+      ui.discordView = isDc;
+      if (isDc) ui.devicePickedAt = S.live.started;
+    }
+    if (Math.abs(Date.now() - S.live.started) < 10000) {
+      showRoundIntro(isDc ? 'TRYB DISCORD!' : 'EKIPA LIVE!', isDc ? 'Kamerki & Awatary 16:9' : 'Runda startuje');
+    }
     toast(
-      S.live.settings && S.live.settings.randomOrder
-        ? '🎲 Ekipa Live wystartowała (z kolejką)! Wybierz Tel lub PC.'
-        : '🎮 Ekipa Live wystartowała! Wybierz Tel lub PC.',
+      isDc
+        ? '🎥 Tryb Discord wystartował! Włącz kamerkę lub graj z awatarem.'
+        : (S.live.settings && S.live.settings.randomOrder
+          ? '🎲 Ekipa Live wystartowała (z kolejką)! Wybierz Tel lub PC.'
+          : '🎮 Ekipa Live wystartowała! Wybierz Tel lub PC.'),
       'ok',
       3200
     );
@@ -4300,8 +4887,36 @@ function renderLobby() {
   const online = list.filter(p => p.on).length;
   const now = Date.now();
   const meInLive = Boolean(me && me.mode === 'live' && now >= net.liveExitPendingUntil);
+  const isDcActive = S.live.on && S.live.variant === 'discord';
+  const panelState = computeLobbyModePanelState(ui.lobbyCat, S.live);
   $('#online-chip').textContent = online + ' online';
+
+  // Baner aktywnej gry zawsze widoczny na górze Lobby niezależnie od zakładki Online / Local
   $('#live-banner').classList.toggle('hidden', !(S.live.on && !meInLive));
+  if (S.live.on && !meInLive) {
+    $('#live-banner-ico').textContent = isDcActive ? '🎥' : '🎮';
+    $('#live-banner-title').textContent = isDcActive ? 'Tryb Discord aktywny!' : 'Ekipa Live aktywna!';
+    $('#live-banner-desc').textContent = isDcActive
+      ? 'Ekipa siedzi już na kafelkach 16:9 — dołącz z kamerką lub awatarem!'
+      : 'Gracze mają już wylosowane hasła — dołącz i wybierz swój widok (Tel / PC).';
+    $('#live-banner-btn').dataset.act = panelState.bannerAction;
+  }
+
+  // Zakładki Online / Local
+  const btnOnline = $('#lcat-online');
+  const btnLocal = $('#lcat-local');
+  const panOnline = $('#lpanel-online');
+  const panLocal = $('#lpanel-local');
+  if (btnOnline && btnLocal && panOnline && panLocal) {
+    btnOnline.classList.toggle('on', panelState.showOnlinePanel);
+    btnOnline.setAttribute('aria-selected', String(panelState.showOnlinePanel));
+    btnOnline.classList.toggle('has-live', panelState.onlineHasLive);
+    btnLocal.classList.toggle('on', panelState.showLocalPanel);
+    btnLocal.setAttribute('aria-selected', String(panelState.showLocalPanel));
+    btnLocal.classList.toggle('has-live', panelState.localHasLive);
+    panOnline.classList.toggle('hidden', !panelState.showOnlinePanel);
+    panLocal.classList.toggle('hidden', !panelState.showLocalPanel);
+  }
 
   const host = S.players[S.hostId];
   const liveOrderOn = S.live.on ? !!(S.live.settings && S.live.settings.randomOrder) : !!S.rules.liveRandomOrder;
@@ -4309,20 +4924,25 @@ function renderLobby() {
   const livePeerOn = !!S.rules.peerJudge;
   const canEditLiveCfg = net.amHost && !S.live.on;
 
-  const swOrder = $('#sw-liveOrder');
-  const swConfirm = $('#sw-liveConfirm');
-  const swPeer = $('#sw-livePeer');
-  swOrder.classList.toggle('on', liveOrderOn);
-  swOrder.disabled = !canEditLiveCfg;
-  swConfirm.classList.toggle('on', liveConfirmOn);
-  swConfirm.disabled = !canEditLiveCfg;
-  swPeer.classList.toggle('on', livePeerOn);
-  swPeer.disabled = !net.amHost;
+  document.querySelectorAll('.js-sw-order').forEach(el => {
+    el.classList.toggle('on', liveOrderOn);
+    el.disabled = !canEditLiveCfg;
+  });
+  document.querySelectorAll('.js-sw-confirm').forEach(el => {
+    el.classList.toggle('on', liveConfirmOn);
+    el.disabled = !canEditLiveCfg;
+  });
+  document.querySelectorAll('.js-sw-peer').forEach(el => {
+    el.classList.toggle('on', livePeerOn);
+    el.disabled = !net.amHost;
+  });
 
-  $('#live-cfg-who').textContent = S.live.on
+  const cfgWhoText = S.live.on
     ? 'Aktywne w tej rundzie'
     : (net.amHost ? 'Ty ustawiasz 👑' : `Ustala Host: ${host ? host.nick : '?'}`);
+  document.querySelectorAll('.js-live-cfg-who').forEach(el => { el.textContent = cfgWhoText; });
 
+  const isDiscordRound = S.live.on && S.live.variant === 'discord';
   let cta = '';
   if (S.live.on) {
     cta = `<button class="btn btn-go btn-xl btn-block" data-act="joinLive"><i class="fa-solid fa-play"></i> ${meInLive ? 'Wróć do Ekipa Live' : 'Dołącz do Ekipa Live'}</button>`;
@@ -4333,11 +4953,22 @@ function renderLobby() {
   }
   $('#live-cta').innerHTML = cta;
 
+  let dcCta = '';
+  if (S.live.on) {
+    dcCta = `<button class="btn btn-go btn-xl btn-block" data-act="joinDiscord"><i class="fa-solid fa-video"></i> ${isDiscordRound ? (meInLive ? 'Wróć do Trybu Discord' : 'Dołącz do Trybu Discord') : 'Otwórz w Trybie Discord 🎥'}</button>`;
+  } else if (net.amHost) {
+    dcCta = `<button class="btn btn-pri btn-xl btn-block cta-pulse" data-act="startDiscord"><i class="fa-solid fa-video"></i> START TRYB DISCORD</button>`;
+  } else {
+    dcCta = `<button class="btn btn-dark btn-block" disabled>⏳ Czekamy na Hosta (${esc(host ? host.nick : '?')})</button>`;
+  }
+  const dcCtaEl = $('#discord-cta');
+  if (dcCtaEl) dcCtaEl.innerHTML = dcCta;
+
   $('#roster').innerHTML = list.map(p => {
     const isMeExitingLive = p.id === pid && now < net.liveExitPendingUntil;
     const displayMode = isMeExitingLive ? 'lobby' : p.mode;
     const status = !p.on ? '<span class="chip gray">offline</span>'
-      : displayMode === 'live' ? '<span class="chip lime">w Ekipa Live</span>'
+      : displayMode === 'live' ? `<span class="chip lime">${isDiscordRound ? 'w Trybie Discord' : 'w Ekipa Live'}</span>`
       : displayMode === 'fh' ? '<span class="chip amber">na czole</span>'
       : '<span class="chip">lobby</span>';
     const isHost = p.id === S.hostId;
@@ -4507,15 +5138,814 @@ function renderAdmin() {
     </div>`).join('');
 }
 
+/* ============================================================================
+   TRYB DISCORD / KAMERA (SIATKA 16:9 + WEBRTC P2P PRZEZ MQTT + VAD MÓWIENIA)
+   ============================================================================ */
+const DC_RTC_CONFIG = {
+  iceServers: [
+    { urls: 'stun:stun.l.google.com:19302' },
+    { urls: 'stun:stun1.l.google.com:19302' }
+  ]
+};
+const DC_VIDEO_CONSTRAINTS = {
+  width: { ideal: 640, max: 640 },
+  height: { ideal: 360, max: 360 },
+  frameRate: { ideal: 20, max: 24 }
+};
+const DC_VAD_THRESHOLD = 0.032;
+const DC_VAD_HOLD_MS = 220;
+
+function computeDiscordGridLayout(count) {
+  const n = Math.max(1, Number(count) || 1);
+  if (n === 1) return { cols: 1, rows: 1 };
+  if (n === 2) return { cols: 2, rows: 1 };
+  if (n === 3) return { cols: 3, rows: 1 };
+  if (n === 4) return { cols: 2, rows: 2 };
+  if (n <= 6) return { cols: 3, rows: 2 }; // 5 graczy => 3 na górze + 2 wyśrodkowane na dole!
+  if (n <= 8) return { cols: 4, rows: 2 };
+  return { cols: 4, rows: Math.ceil(n / 4) };
+}
+
+function computeVadDecision(rms, wasSpeaking, now, lastAboveTs, threshold = DC_VAD_THRESHOLD, holdMs = DC_VAD_HOLD_MS) {
+  if (rms >= threshold) return { speaking: true, lastAboveTs: now };
+  if (wasSpeaking && (now - lastAboveTs) < holdMs) return { speaking: true, lastAboveTs };
+  return { speaking: false, lastAboveTs };
+}
+
+function shouldBePolitePeer(myId, peerId) {
+  return String(myId || '') > String(peerId || '');
+}
+
+const dc = {
+  active: false,
+  camOn: false,
+  localCamStream: null,
+  selectedCamId: '',
+  camDevices: [],
+  micOn: false,
+  localMicStream: null,
+  audioCtx: null,
+  analyser: null,
+  vadData: null,
+  vadRaf: 0,
+  vadSpeaking: false,
+  vadLastAbove: 0,
+  vadLastCheck: 0,
+  pcs: {},
+  remoteStreams: {},
+  remoteCamOn: {},
+  speaking: {},
+  helloSentAt: 0
+};
+
+function dcSendRtc(msg) {
+  if (!net.joined || !S || !net.connected) return;
+  pub('rtc', Object.assign({ from: pid, gen: S.gen }, msg), false);
+}
+
+function dcClosePeer(peerId) {
+  const entry = dc.pcs[peerId];
+  if (entry) {
+    try {
+      entry.pc.onicecandidate = null;
+      entry.pc.ontrack = null;
+      entry.pc.onnegotiationneeded = null;
+      entry.pc.oniceconnectionstatechange = null;
+      entry.pc.close();
+    } catch {}
+    delete dc.pcs[peerId];
+  }
+}
+
+function dcAttachStreamToTile(peerId, stream) {
+  const tile = document.querySelector(`#dc-grid .dc-tile[data-pid="${CSS.escape ? CSS.escape(peerId) : peerId}"]`);
+  if (!tile) return;
+  const vid = tile.querySelector('video.dc-video');
+  const hasStream = Boolean(stream && stream.getVideoTracks && stream.getVideoTracks().some(t => t.readyState === 'live'));
+  tile.classList.toggle('has-video', hasStream);
+  const camIc = tile.querySelector('.dc-cam-ic');
+  if (camIc) {
+    camIc.className = 'fa-solid ' + (hasStream ? 'fa-video dc-ic cam-on dc-cam-ic' : 'fa-video-slash dc-ic dc-cam-ic');
+  }
+  if (vid) {
+    if (hasStream) {
+      if (vid.srcObject !== stream) {
+        vid.srcObject = stream;
+        try { vid.play().catch(() => {}); } catch {}
+      }
+    } else if (vid.srcObject) {
+      vid.srcObject = null;
+    }
+  }
+}
+
+function dcPatchSpeakingDom(peerId) {
+  const tile = document.querySelector(`#dc-grid .dc-tile[data-pid="${CSS.escape ? CSS.escape(peerId) : peerId}"]`);
+  if (!tile) return;
+  const sp = dc.speaking[peerId];
+  const isSp = Boolean(sp && sp.on);
+  tile.classList.toggle('is-speaking', isSp);
+  const micIc = tile.querySelector('.dc-mic-ic');
+  if (micIc) {
+    if (isSp) micIc.className = 'fa-solid fa-microphone dc-ic on dc-mic-ic';
+    else if (peerId === pid && dc.micOn) micIc.className = 'fa-solid fa-microphone-lines dc-ic dc-mic-ic';
+    else micIc.className = 'fa-solid fa-microphone-slash dc-ic dc-mic-ic';
+  }
+}
+
+function dcPruneStaleSpeaking(now) {
+  for (const [id, st] of Object.entries(dc.speaking)) {
+    if (id !== pid && st.on && now - st.at > 12000) {
+      dc.speaking[id] = { on: false, at: now };
+      dcPatchSpeakingDom(id);
+    }
+  }
+}
+
+function dcEnsurePc(peerId) {
+  if (dc.pcs[peerId]) return dc.pcs[peerId];
+  if (typeof RTCPeerConnection === 'undefined') return null;
+  const pc = new RTCPeerConnection(DC_RTC_CONFIG);
+  const entry = {
+    pc,
+    polite: shouldBePolitePeer(pid, peerId),
+    makingOffer: false,
+    ignoreOffer: false,
+    pendingIce: []
+  };
+  dc.pcs[peerId] = entry;
+
+  if (dc.camOn && dc.localCamStream) {
+    const vTrack = dc.localCamStream.getVideoTracks()[0];
+    if (vTrack && vTrack.readyState === 'live') {
+      try { pc.addTrack(vTrack, dc.localCamStream); } catch {}
+    }
+  }
+
+  pc.onicecandidate = ev => {
+    if (ev.candidate) {
+      dcSendRtc({ t: 'ice', to: peerId, cand: ev.candidate });
+    }
+  };
+
+  pc.onnegotiationneeded = async () => {
+    try {
+      entry.makingOffer = true;
+      await pc.setLocalDescription();
+      dcSendRtc({ t: 'offer', to: peerId, sdp: pc.localDescription });
+    } catch {} finally {
+      entry.makingOffer = false;
+    }
+  };
+
+  pc.ontrack = ev => {
+    if (ev.track.kind !== 'video') return;
+    const stream = (ev.streams && ev.streams[0]) || new MediaStream([ev.track]);
+    dc.remoteStreams[peerId] = stream;
+    dc.remoteCamOn[peerId] = true;
+    dcAttachStreamToTile(peerId, stream);
+    ev.track.onended = () => {
+      if (dc.remoteStreams[peerId] === stream) {
+        delete dc.remoteStreams[peerId];
+        dc.remoteCamOn[peerId] = false;
+        dcAttachStreamToTile(peerId, null);
+      }
+    };
+  };
+
+  pc.oniceconnectionstatechange = () => {
+    if (pc.iceConnectionState === 'failed' || pc.iceConnectionState === 'closed') {
+      dcClosePeer(peerId);
+      if (dc.remoteStreams[peerId]) {
+        delete dc.remoteStreams[peerId];
+        dc.remoteCamOn[peerId] = false;
+        dcAttachStreamToTile(peerId, null);
+      }
+    }
+  };
+
+  return entry;
+}
+
+function dcConnectPeersForMyCam() {
+  if (!dc.active || !dc.camOn || !dc.localCamStream || !S) return;
+  const vTrack = dc.localCamStream.getVideoTracks()[0];
+  if (!vTrack || vTrack.readyState !== 'live') return;
+  const peers = players().filter(p => p.mode === 'live' && p.on && p.id !== pid);
+  for (const p of peers) {
+    const existed = Boolean(dc.pcs[p.id]);
+    const entry = dcEnsurePc(p.id);
+    if (!entry) continue;
+    const senders = entry.pc.getSenders ? entry.pc.getSenders() : [];
+    const vSender = senders.find(s => s.track && s.track.kind === 'video') || senders[0];
+    if (existed && vSender) {
+      if (vSender.track !== vTrack) {
+        try { vSender.replaceTrack(vTrack); } catch {}
+      }
+    } else if (existed && !vSender) {
+      try { entry.pc.addTrack(vTrack, dc.localCamStream); } catch {}
+    }
+  }
+}
+
+async function dcHandleRtc(m) {
+  if (!net.joined || !S || net.leaving) return;
+  if (m.from === pid) return;
+  if (m.gen && m.gen !== S.gen) return;
+
+  if (m.t === 'vad') {
+    dc.speaking[m.from] = { on: !!m.on, at: Date.now() };
+    dcPatchSpeakingDom(m.from);
+    return;
+  }
+
+  if (m.t === 'cam_off') {
+    dc.remoteCamOn[m.from] = false;
+    delete dc.remoteStreams[m.from];
+    dcAttachStreamToTile(m.from, null);
+    if (!dc.camOn) dcClosePeer(m.from);
+    return;
+  }
+
+  if (m.t === 'hello') {
+    dc.remoteCamOn[m.from] = !!m.cam;
+    if (dc.active && dc.camOn && dc.localCamStream) {
+      dcClosePeer(m.from);
+      dcEnsurePc(m.from);
+    }
+    if (dc.active && dc.vadSpeaking) {
+      dcSendRtc({ t: 'vad', on: true });
+    }
+    return;
+  }
+
+  if (m.to !== pid) return;
+  if (!dc.active) return;
+
+  if (m.t === 'offer' || m.t === 'answer') {
+    const entry = dcEnsurePc(m.from);
+    if (!entry || !m.sdp) return;
+    const { pc } = entry;
+    try {
+      const desc = new RTCSessionDescription(m.sdp);
+      const offerCollision = desc.type === 'offer' && (entry.makingOffer || pc.signalingState !== 'stable');
+      entry.ignoreOffer = !entry.polite && offerCollision;
+      if (entry.ignoreOffer) return;
+
+      await pc.setRemoteDescription(desc);
+      while (entry.pendingIce.length) {
+        const c = entry.pendingIce.shift();
+        try { await pc.addIceCandidate(new RTCIceCandidate(c)); } catch {}
+      }
+      if (desc.type === 'offer') {
+        await pc.setLocalDescription();
+        dcSendRtc({ t: 'answer', to: m.from, sdp: pc.localDescription });
+      }
+    } catch {}
+  } else if (m.t === 'ice') {
+    const entry = dc.pcs[m.from];
+    if (!entry || !m.cand || entry.ignoreOffer) return;
+    try {
+      if (entry.pc.remoteDescription && entry.pc.remoteDescription.type) {
+        await entry.pc.addIceCandidate(new RTCIceCandidate(m.cand));
+      } else {
+        entry.pendingIce.push(m.cand);
+      }
+    } catch {}
+  }
+}
+
+async function dcRefreshCamDevices() {
+  try {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) return [];
+    const all = await navigator.mediaDevices.enumerateDevices();
+    dc.camDevices = all.filter(d => d.kind === 'videoinput');
+    return dc.camDevices;
+  } catch {
+    return [];
+  }
+}
+
+function dcUpdateControlButtons() {
+  const bCam = $('#dc-btn-cam');
+  if (bCam) {
+    bCam.classList.toggle('btn-dc-on', dc.camOn);
+    bCam.classList.toggle('btn-ghost', !dc.camOn);
+    bCam.innerHTML = dc.camOn
+      ? '<i class="fa-solid fa-video"></i><span class="lbl-txt"> Kamerka WŁ.</span>'
+      : '<i class="fa-solid fa-video-slash"></i><span class="lbl-txt"> Kamerka</span>';
+  }
+  const bMic = $('#dc-btn-mic');
+  if (bMic) {
+    bMic.classList.toggle('btn-dc-vad-on', dc.micOn);
+    bMic.classList.toggle('btn-ghost', !dc.micOn);
+    bMic.innerHTML = dc.micOn
+      ? '<i class="fa-solid fa-microphone"></i><span class="lbl-txt"> Mówienie WŁ.</span>'
+      : '<i class="fa-solid fa-microphone-slash"></i><span class="lbl-txt"> Ramka mówienia</span>';
+  }
+}
+
+function dcStopCam(broadcast = true) {
+  if (dc.localCamStream) {
+    try { dc.localCamStream.getTracks().forEach(t => t.stop()); } catch {}
+    dc.localCamStream = null;
+  }
+  const wasOn = dc.camOn;
+  dc.camOn = false;
+  for (const [peerId, entry] of Object.entries(dc.pcs)) {
+    try {
+      const senders = entry.pc.getSenders ? entry.pc.getSenders() : [];
+      for (const s of senders) {
+        if (s.track && s.track.kind === 'video') entry.pc.removeTrack(s);
+      }
+    } catch {}
+    if (!dc.remoteStreams[peerId]) dcClosePeer(peerId);
+  }
+  if (broadcast && wasOn) dcSendRtc({ t: 'cam_off' });
+  dcAttachStreamToTile(pid, null);
+  dcUpdateControlButtons();
+}
+
+async function dcToggleCam(deviceIdOverride = '') {
+  if (!deviceIdOverride && dc.camOn) {
+    dcStopCam(true);
+    toast('🎥 Kamerka wyłączona — wrócił kafelek z awatarem.', 'info', 2000);
+    return;
+  }
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    toast('Ta przeglądarka nie obsługuje kamerki (wymagany HTTPS) — zostaje Twój awatar.', 'warn', 3600);
+    dcStopCam(false);
+    return;
+  }
+  const devId = deviceIdOverride || dc.selectedCamId;
+  const videoCfg = Object.assign({}, DC_VIDEO_CONSTRAINTS, devId ? { deviceId: { exact: devId } } : { facingMode: 'user' });
+  let stream = null;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ video: videoCfg, audio: false });
+  } catch (err) {
+    if (err && (err.name === 'OverconstrainedError' || err.name === 'ConstraintNotSatisfiedError')) {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+      } catch (err2) { err = err2; }
+    }
+    if (!stream) {
+      const name = err && err.name ? err.name : '';
+      let msg = 'Nie udało się uruchomić kamerki — wyświetlany jest Twój awatar.';
+      if (name === 'NotAllowedError' || name === 'PermissionDeniedError') {
+        msg = 'Brak zgody na kamerkę — wyświetlany jest Twój awatar w stylu Discorda.';
+      } else if (name === 'NotReadableError' || name === 'TrackStartError') {
+        msg = 'Kamerka jest zajęta (np. przez Discorda lub inną apkę) — wyświetlany jest Twój awatar.';
+      } else if (name === 'NotFoundError' || name === 'DevicesNotFoundError') {
+        msg = 'Nie wykryto żadnej kamery — wyświetlany jest Twój awatar.';
+      }
+      toast(msg, 'warn', 3800);
+      if (!dc.camOn) dcAttachStreamToTile(pid, null);
+      return;
+    }
+  }
+
+  const prevStream = dc.localCamStream;
+  dc.localCamStream = stream;
+  dc.camOn = true;
+  const vTrack = stream.getVideoTracks()[0];
+  if (vTrack) {
+    const st = vTrack.getSettings ? vTrack.getSettings() : {};
+    if (st.deviceId) dc.selectedCamId = st.deviceId;
+    vTrack.onended = () => {
+      if (dc.localCamStream === stream) dcStopCam(true);
+    };
+  }
+  if (prevStream && prevStream !== stream) {
+    try { prevStream.getTracks().forEach(t => t.stop()); } catch {}
+  }
+  await dcRefreshCamDevices();
+  dcUpdateControlButtons();
+  dcAttachStreamToTile(pid, stream);
+  dcConnectPeersForMyCam();
+  dcSendRtc({ t: 'hello', cam: true });
+  haptic(14);
+  toast('🎥 Kamerka włączona (max 480p / 20 fps)!', 'ok', 2200);
+}
+
+async function dcPickCam() {
+  const devs = await dcRefreshCamDevices();
+  if (!devs.length) {
+    toast('Nie wykryto kamer. Włącz kamerkę raz, aby przeglądarka udostępniła listę urządzeń.', 'warn', 3400);
+    return;
+  }
+  const items = devs.map((d, i) => {
+    const label = d.label || `Kamera ${i + 1}`;
+    const active = dc.camOn && dc.selectedCamId === d.deviceId;
+    return `<button class="btn ${active ? 'btn-go' : 'btn-ghost'} btn-block dc-cam-choice" data-devid="${esc(d.deviceId)}" style="justify-content:flex-start;text-align:left">
+      <i class="fa-solid ${active ? 'fa-circle-check' : 'fa-video'}"></i>
+      <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(label)}</span>
+    </button>`;
+  }).join('');
+  modal(`<h3><i class="fa-solid fa-camera" style="color:var(--cyan)"></i> Wybierz kamerę</h3>
+    <p>Przełącz kamerę na żywo (np. przednia / tylna na telefonie lub druga kamera na PC).</p>
+    <div class="col" style="gap:8px;margin-bottom:14px">${items}</div>
+    <div class="row">
+      ${dc.camOn ? '<button class="btn btn-no grow" id="dc-cam-off-m">Wyłącz kamerkę</button>' : ''}
+      <button class="btn btn-ghost grow" data-act="modalClose">Zamknij</button>
+    </div>`);
+  document.querySelectorAll('#modal .dc-cam-choice').forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.dataset.devid || '';
+      dc.selectedCamId = id;
+      closeModal();
+      dcToggleCam(id);
+    };
+  });
+  const offBtn = $('#dc-cam-off-m');
+  if (offBtn) offBtn.onclick = () => { closeModal(); dcStopCam(true); };
+}
+
+function dcStopMic(broadcast = true) {
+  if (dc.vadRaf) { cancelAnimationFrame(dc.vadRaf); dc.vadRaf = 0; }
+  if (dc.localMicStream) {
+    try { dc.localMicStream.getTracks().forEach(t => t.stop()); } catch {}
+    dc.localMicStream = null;
+  }
+  if (dc.audioCtx) {
+    try { dc.audioCtx.close(); } catch {}
+    dc.audioCtx = null;
+  }
+  dc.analyser = null;
+  dc.vadData = null;
+  const wasSpeaking = dc.vadSpeaking;
+  dc.micOn = false;
+  dc.vadSpeaking = false;
+  dc.speaking[pid] = { on: false, at: Date.now() };
+  dcPatchSpeakingDom(pid);
+  if (broadcast && wasSpeaking) dcSendRtc({ t: 'vad', on: false });
+  dcUpdateControlButtons();
+}
+
+function dcVadLoop() {
+  if (!dc.micOn || !dc.analyser || !dc.vadData) return;
+  dc.vadRaf = requestAnimationFrame(dcVadLoop);
+  const now = performance.now();
+  if (now - dc.vadLastCheck < 55) return;
+  dc.vadLastCheck = now;
+
+  let sumSq = 0;
+  if (dc.analyser.getFloatTimeDomainData && dc.vadData instanceof Float32Array) {
+    dc.analyser.getFloatTimeDomainData(dc.vadData);
+    for (let i = 0; i < dc.vadData.length; i++) sumSq += dc.vadData[i] * dc.vadData[i];
+  } else {
+    dc.analyser.getByteTimeDomainData(dc.vadData);
+    for (let i = 0; i < dc.vadData.length; i++) {
+      const v = (dc.vadData[i] - 128) / 128;
+      sumSq += v * v;
+    }
+  }
+  const rms = Math.sqrt(sumSq / dc.vadData.length);
+  const dec = computeVadDecision(rms, dc.vadSpeaking, now, dc.vadLastAbove);
+  dc.vadLastAbove = dec.lastAboveTs;
+  if (dec.speaking !== dc.vadSpeaking) {
+    dc.vadSpeaking = dec.speaking;
+    dc.speaking[pid] = { on: dec.speaking, at: Date.now() };
+    dcPatchSpeakingDom(pid);
+    dcSendRtc({ t: 'vad', on: dec.speaking });
+  }
+}
+
+async function dcToggleMic() {
+  if (dc.micOn) {
+    dcStopMic(true);
+    toast('🎙️ Ramka mówienia wyłączona.', 'info', 1800);
+    return;
+  }
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    toast('Przeglądarka nie obsługuje mikrofonu (wymagany HTTPS).', 'warn', 3200);
+    return;
+  }
+  let stream = null;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
+      video: false
+    });
+  } catch (err) {
+    const name = err && err.name ? err.name : '';
+    const msg = (name === 'NotAllowedError' || name === 'PermissionDeniedError')
+      ? 'Brak dostępu do mikrofonu — ramka mówienia pozostała wyłączona.'
+      : 'Nie udało się uruchomić wykrywania głosu (mikrofon niedostępny lub zajęty).';
+    toast(msg, 'warn', 3400);
+    return;
+  }
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const actx = new AC();
+    if (actx.state === 'suspended') await actx.resume();
+    const src = actx.createMediaStreamSource(stream);
+    const an = actx.createAnalyser();
+    an.fftSize = 512;
+    an.smoothingTimeConstant = 0.6;
+    src.connect(an); // celowo BEZ podłączania do destination i BEZ wysyłania przez WebRTC!
+    dc.localMicStream = stream;
+    dc.audioCtx = actx;
+    dc.analyser = an;
+    dc.vadData = typeof Float32Array !== 'undefined' && an.getFloatTimeDomainData
+      ? new Float32Array(an.fftSize)
+      : new Uint8Array(an.fftSize);
+    dc.micOn = true;
+    dc.vadSpeaking = false;
+    dc.vadLastAbove = 0;
+    dc.vadLastCheck = 0;
+    const aTrack = stream.getAudioTracks()[0];
+    if (aTrack) aTrack.onended = () => { if (dc.localMicStream === stream) dcStopMic(true); };
+    dcUpdateControlButtons();
+    dcPatchSpeakingDom(pid);
+    dcVadLoop();
+    haptic(12);
+    toast('🎙️ Ramka mówienia aktywna (tylko lokalny poziom głosu, zero echa z Discorda!).', 'ok', 2800);
+  } catch {
+    try { stream.getTracks().forEach(t => t.stop()); } catch {}
+    toast('Nie udało się uruchomić analizatora audio.', 'warn', 3000);
+  }
+}
+
+function dcStopAllMedia(broadcast = true) {
+  dcStopCam(broadcast);
+  dcStopMic(broadcast);
+  for (const peerId of Object.keys(dc.pcs)) dcClosePeer(peerId);
+  dc.remoteStreams = {};
+  dc.remoteCamOn = {};
+  dc.speaking = {};
+  dc.active = false;
+  dc.helloSentAt = 0;
+  dcUpdateControlButtons();
+}
+
+function dcCreateTileEl(id) {
+  const tile = document.createElement('div');
+  tile.className = 'dc-tile';
+  tile.dataset.pid = id;
+  tile.innerHTML = `
+    <div class="dc-media">
+      <video class="dc-video" autoplay playsinline muted></video>
+      <div class="dc-av-wrap"><div class="dc-av"></div></div>
+    </div>
+    <div class="dc-top-badges">
+      <span class="dc-turn-tag">🎤 TURA</span>
+    </div>
+    <div class="dc-judge hidden">
+      <button class="dc-jbtn ok" data-act="judge" data-r="ok" title="Zaliczone (SIADŁO)" aria-label="Zalicz hasło"><i class="fa-solid fa-check"></i></button>
+      <button class="dc-jbtn no" data-act="judge" data-r="pass" title="Spasowane (PAS)" aria-label="Spasuj hasło"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="dc-score-badge">
+      <span class="dc-crown" aria-hidden="true">👑</span>
+      <span class="dc-pts">0</span>
+      <small>pkt</small>
+    </div>
+    <div class="dc-nick-badge">
+      <i class="fa-solid fa-microphone-slash dc-ic dc-mic-ic" aria-hidden="true"></i>
+      <i class="fa-solid fa-video-slash dc-ic dc-cam-ic" aria-hidden="true"></i>
+      <span class="dc-nick-txt"></span>
+    </div>
+    <div class="dc-word-pill">? ? ? ? ?</div>
+  `;
+  return tile;
+}
+
+function renderDiscord(inGame, activeTurnId, isMyTurn, orderOn, confirmOn, orderIds, activeTurnPlayer) {
+  const el = $('#scr-discord');
+  const now = Date.now();
+  const wasActive = dc.active;
+  dc.active = true;
+  el.classList.remove('hidden');
+  if (!wasActive) {
+    keepAwake(true);
+    dcUpdateControlButtons();
+  }
+  if (now - dc.helloSentAt > 15000) {
+    dc.helloSentAt = now;
+    dcSendRtc({ t: 'hello', cam: dc.camOn });
+  }
+
+  const lobbyN = players().filter(p => p.on && p.mode !== 'live').length;
+  $('#dc-sub').textContent = `KOD ${net.code} • ${inGame.length} w grze${lobbyN ? ` • ${lobbyN} w lobby` : ''}`;
+  $('#dc-deal').classList.toggle('hidden', !net.amHost);
+  $('#dc-end').classList.toggle('hidden', !net.amHost);
+  const dcc = $('#dc-clock');
+  if (dcc) dcc.textContent = '⏱ ' + fmtClock(now - (S.live.started || now));
+
+  const lastRev = $('#dc-last-rev');
+  if (lastRev) {
+    if (net.lastRevealed) {
+      lastRev.textContent = net.lastRevealed;
+      lastRev.classList.remove('hidden');
+    } else {
+      lastRev.classList.add('hidden');
+    }
+  }
+
+  const turnBar = $('#dc-turn-bar');
+  if (orderOn && orderIds.length) {
+    turnBar.classList.remove('hidden');
+    turnBar.classList.toggle('turn-pop', now < net.turnPulseUntil);
+    const statusHtml = isMyTurn
+      ? `<span class="turn-status mine">🎤 Twoja tura! ${confirmOn ? 'Gdy skończysz, oddaj turę.' : 'Pytaj ekipę.'}</span>`
+      : `<span class="turn-status wait">${confirmOn ? '⏳ Czekamy na:' : '🗣️ Teraz mówi:'} ${esc(activeTurnPlayer ? activeTurnPlayer.nick : '?')}</span>`;
+    const hostTurnBtns = net.amHost
+      ? `<button class="btn btn-ghost btn-xs" data-act="skipTurn" title="Przejdź do następnego gracza">⏭ Pomiń</button>
+         <button class="btn btn-dark btn-xs" data-act="reshuffleOrder" title="Przetasuj kolejkę">🎲</button>`
+      : '';
+    const myTurnBtn = isMyTurn
+      ? `<button class="btn ${confirmOn ? 'btn-go' : 'btn-amber'} btn-sm btn-turn-done" data-act="nextTurn"><i class="fa-solid fa-check"></i> Skończyłem → Następny</button>`
+      : '';
+    turnBar.innerHTML = `<div class="turn-top">${statusHtml}<div class="turn-cta">${myTurnBtn}${hostTurnBtns}</div></div>`;
+  } else {
+    turnBar.classList.add('hidden');
+    turnBar.innerHTML = '';
+  }
+
+  const me = S.players[pid];
+  const pendMe = !me || (net.pend[pid] && net.pend[pid].wid === me.wid) || now < net.myCooldownUntil;
+  const disableSelfBtns = !me || !me.wid || pendMe;
+  ['#dc-ok-top', '#dc-pass-top', '#dc-ok-mob', '#dc-pass-mob'].forEach(sel => {
+    const b = $(sel);
+    if (b) b.disabled = disableSelfBtns;
+  });
+
+  // Lider rundy/wyniku (najwięcej punktów > 0)
+  let leaderId = null, bestScore = 0, bestOk = -1;
+  for (const p of inGame) {
+    if (p.score > bestScore || (p.score > 0 && p.score === bestScore && p.ok > bestOk)) {
+      bestScore = p.score;
+      bestOk = p.ok;
+      leaderId = p.id;
+    }
+  }
+
+  const grid = $('#dc-grid');
+  const layout = computeDiscordGridLayout(inGame.length);
+  grid.style.setProperty('--dc-cols', String(layout.cols));
+  grid.style.setProperty('--dc-rows', String(layout.rows));
+  grid.dataset.cols = String(layout.cols);
+  grid.dataset.rows = String(layout.rows);
+
+  const inGameIds = new Set(inGame.map(p => p.id));
+  // Usuń kafelki i połączenia graczy, którzy opuścili tryb
+  Array.from(grid.children).forEach(child => {
+    const cid = child.dataset && child.dataset.pid;
+    if (!cid || !inGameIds.has(cid)) child.remove();
+  });
+  for (const peerId of Object.keys(dc.pcs)) {
+    if (!inGameIds.has(peerId)) {
+      dcClosePeer(peerId);
+      delete dc.remoteStreams[peerId];
+      delete dc.remoteCamOn[peerId];
+    }
+  }
+
+  const canJudgeOthers = net.amHost || !!S.rules.peerJudge;
+
+  inGame.forEach((p, idx) => {
+    let tile = grid.querySelector(`.dc-tile[data-pid="${CSS.escape ? CSS.escape(p.id) : p.id}"]`);
+    if (!tile) {
+      tile = dcCreateTileEl(p.id);
+      grid.appendChild(tile);
+    } else if (grid.children[idx] !== tile) {
+      grid.insertBefore(tile, grid.children[idx] || null);
+    }
+
+    const isMe = p.id === pid;
+    const w = wordById(p.wid);
+    const onTurn = p.id === activeTurnId;
+    const isLeader = p.id === leaderId;
+    const isSp = Boolean(dc.speaking[p.id] && dc.speaking[p.id].on);
+    const flash = net.cardFlash[p.id] && now < net.cardFlash[p.id].until ? net.cardFlash[p.id].r : '';
+    const pend = net.pend[p.id] && net.pend[p.id].wid === p.wid;
+
+    tile.classList.toggle('is-me', isMe);
+    tile.classList.toggle('is-off', !p.on);
+    tile.classList.toggle('is-turn', onTurn);
+    tile.classList.toggle('is-leader', isLeader);
+    tile.classList.toggle('is-speaking', isSp);
+    tile.classList.toggle('flash-ok-card', flash === 'ok');
+    tile.classList.toggle('flash-no-card', flash === 'no');
+
+    // Aktualizacja awatara bez resetowania GIF-ów!
+    const avBox = tile.querySelector('.dc-av');
+    if (avBox) updateAvatarEl(avBox, p);
+
+    // Strumień wideo (lokalny dla siebie, zdalny P2P dla innych)
+    const stream = isMe ? (dc.camOn ? dc.localCamStream : null) : (dc.remoteStreams[p.id] || null);
+    dcAttachStreamToTile(p.id, stream);
+
+    // Nick + ikonki stanu
+    const nickEl = tile.querySelector('.dc-nick-txt');
+    const nickText = p.nick + (isMe ? ' (Ty)' : '') + (p.id === S.hostId ? ' 👑' : '');
+    if (nickEl && nickEl.textContent !== nickText) nickEl.textContent = nickText;
+    dcPatchSpeakingDom(p.id);
+
+    // Plakietka punktów (z subtelnym pulsem przy wzroście wyniku)
+    const ptsEl = tile.querySelector('.dc-pts');
+    const scoreBadge = tile.querySelector('.dc-score-badge');
+    if (ptsEl && ptsEl.textContent !== String(p.score)) {
+      const prevScore = Number(ptsEl.dataset.prevScore);
+      ptsEl.textContent = String(p.score);
+      ptsEl.dataset.prevScore = String(p.score);
+      if (scoreBadge && Number.isFinite(prevScore) && p.score > prevScore) {
+        scoreBadge.classList.remove('score-up');
+        void scoreBadge.offsetWidth;
+        scoreBadge.classList.add('score-up');
+      }
+    } else if (ptsEl && ptsEl.dataset.prevScore === undefined) {
+      ptsEl.dataset.prevScore = String(p.score);
+    }
+
+    // Dolna pigułka z hasłem
+    const wordEl = tile.querySelector('.dc-word-pill');
+    if (wordEl) {
+      if (isMe) {
+        wordEl.className = 'dc-word-pill is-secret';
+        wordEl.textContent = p.wid ? (pend ? 'losuję nowe…' : '? ? ? ? ?') : (S.words.length ? 'czekasz…' : 'worek pusty');
+      } else if (w) {
+        wordEl.className = 'dc-word-pill';
+        wordEl.textContent = w.t;
+        wordEl.title = `${w.t} (${w.c})`;
+      } else {
+        wordEl.className = 'dc-word-pill is-wait';
+        wordEl.textContent = '⏳ Czeka na hasło…';
+      }
+    }
+
+    // Przyciski sędziowania ✓ / ✕ dla pozostałych graczy
+    const judgeWrap = tile.querySelector('.dc-judge');
+    if (judgeWrap) {
+      const showJudge = !isMe && canJudgeOthers && Boolean(w);
+      judgeWrap.classList.toggle('hidden', !showJudge);
+      if (showJudge) {
+        judgeWrap.querySelectorAll('.dc-jbtn').forEach(btn => {
+          btn.dataset.id = p.id;
+          btn.dataset.w = w.id;
+          btn.disabled = Boolean(pend);
+        });
+      }
+    }
+  });
+
+  if (dc.camOn && dc.localCamStream) dcConnectPeersForMyCam();
+}
+
 function renderLive() {
   const me = S.players[pid];
   const now = Date.now();
   const exitingLocally = now < net.liveExitPendingUntil;
-  const show = !!(S.live.on && me && me.mode === 'live' && !exitingLocally) && !fh.on;
+  const showAny = !!(S.live.on && me && me.mode === 'live' && !exitingLocally) && !fh.on;
+
+  if (showAny && ui.discordVariantSyncAt !== S.live.started) {
+    ui.discordVariantSyncAt = S.live.started;
+    ui.discordView = S.live.variant === 'discord';
+    if (ui.discordView) ui.devicePickedAt = S.live.started;
+  }
+
+  const showDiscord = showAny && ui.discordView;
+  const show = showAny && !showDiscord;
   const el = $('#scr-live');
+  const dcEl = $('#scr-discord');
   const devPicker = $('#device-picker');
   const wasHidden = el.classList.contains('hidden');
+
+  if (!showDiscord && dc.active) {
+    dcEl.classList.add('hidden');
+    dcStopAllMedia(true);
+    if (!show) keepAwake(false);
+  } else if (!showDiscord) {
+    dcEl.classList.add('hidden');
+  }
+
   el.classList.toggle('hidden', !show);
+
+  if (showDiscord) {
+    devPicker.classList.add('hidden');
+    const inGame = players().filter(p => p.mode === 'live');
+    const orderOn = !!(S.live.settings && S.live.settings.randomOrder);
+    const confirmOn = !!(S.live.settings && S.live.settings.confirmTurn);
+    const orderIds = (S.live.order || []).filter(id => S.players[id] && S.players[id].mode === 'live');
+    const safeTurnIdx = orderIds.length ? (S.live.turnIdx % orderIds.length + orderIds.length) % orderIds.length : 0;
+    const activeTurnId = orderOn && orderIds.length ? orderIds[safeTurnIdx] : null;
+    const activeTurnPlayer = activeTurnId ? S.players[activeTurnId] : null;
+    const isMyTurn = activeTurnId === pid;
+    if (orderOn && activeTurnId && activeTurnId !== net.lastTurnId) {
+      const hadPrevTurn = net.lastTurnId !== null;
+      net.lastTurnId = activeTurnId;
+      if (hadPrevTurn) {
+        net.turnPulseUntil = now + 600;
+        if (isMyTurn) { sfx('turn'); toast('🎤 Twoja tura!', 'ok', 2000); }
+        else sfx('queue');
+      }
+    } else if (!orderOn) {
+      net.lastTurnId = null;
+    }
+    renderDiscord(inGame, activeTurnId, isMyTurn, orderOn, confirmOn, orderIds, activeTurnPlayer);
+    for (const p of Object.values(S.players)) net.prevWid[p.id] = p.wid;
+    return;
+  }
+
   if (!show) {
     net.liveSeen = null;
     net.liveGhosts = {};
@@ -4850,7 +6280,48 @@ function flashMe(k) {
   el.classList.add(k === 'ok' ? 'flash-ok' : 'flash-no');
 }
 
-/* ---------- EKRAN STARTOWY ---------- */
+/* ---------- EKRAN STARTOWY (DWUETAPOWY: 1. PROFIL -> 2. POKÓJ) ---------- */
+function setStartStep(step, animate = true) {
+  const next = step === 2 ? 2 : 1;
+  const prev = ui.startStep;
+  ui.startStep = next;
+  const s1 = $('#start-step-1');
+  const s2 = $('#start-step-2');
+  const show1 = next === 1;
+  if (s1) {
+    s1.classList.toggle('hidden', !show1);
+    s1.classList.remove('step-in-fwd', 'step-in-back');
+    if (show1 && animate && prev !== next && !RM.matches) {
+      void s1.offsetWidth;
+      s1.classList.add('step-in-back');
+    }
+  }
+  if (s2) {
+    s2.classList.toggle('hidden', show1);
+    s2.classList.remove('step-in-fwd', 'step-in-back');
+    if (!show1 && animate && prev !== next && !RM.matches) {
+      void s2.offsetWidth;
+      s2.classList.add('step-in-fwd');
+    }
+  }
+  renderStart();
+  if (!show1) {
+    const focusEl = ui.authMode === 'join' ? $('#code-join') : $('#code-create');
+    if (focusEl && !ui.inviteCode) setTimeout(() => focusEl.focus(), 60);
+  } else {
+    setTimeout(() => { const n = $('#nick'); if (n) n.focus(); }, 60);
+  }
+}
+
+function goToStartStep2() {
+  if (!readNick()) {
+    flashBtn($('#btn-step-next'), false);
+    return false;
+  }
+  setStartStep(2, true);
+  return true;
+}
+
 function renderStart() {
   $('#ver-pill').textContent = APP_VERSION;
   updateSoundIcons();
@@ -4858,6 +6329,33 @@ function renderStart() {
   updateAvatarEl($('#start-av'), { id: pid, av: profile.av });
   $('#av-grid').innerHTML = AVATARS.map(a => `<button class="${!profile.img && profile.av === a ? 'on' : ''}" data-act="pickAv" data-av="${a}" aria-label="Awatar ${a}">${a}</button>`).join('');
   $('#clear-img').classList.toggle('hidden', !profile.img);
+
+  // Etapy (1 Profil -> 2 Pokój)
+  const isStep2 = ui.startStep === 2;
+  $('#start-step-1').classList.toggle('hidden', isStep2);
+  $('#start-step-2').classList.toggle('hidden', !isStep2);
+  const ind1 = $('#st-ind-1');
+  const ind2 = $('#st-ind-2');
+  if (ind1 && ind2) {
+    ind1.classList.toggle('on', !isStep2);
+    ind1.classList.toggle('done', isStep2);
+    ind2.classList.toggle('on', isStep2);
+  }
+
+  // Chip zaproszenia w Kroku 1 (gdy wejście z ?room=KOD)
+  const invChip = $('#invite-room-chip');
+  const invCode = $('#invite-room-code');
+  if (invChip && invCode) {
+    invChip.classList.toggle('hidden', !ui.inviteCode);
+    if (ui.inviteCode) invCode.textContent = ui.inviteCode;
+  }
+
+  // Kompaktowy pasek profilu w Kroku 2
+  const s2Av = $('#step2-av');
+  const s2Nick = $('#step2-nick');
+  if (s2Av) updateAvatarEl(s2Av, { id: pid, av: profile.av });
+  if (s2Nick) s2Nick.textContent = profile.nick || $('#nick').value.trim() || 'Gracz';
+
   $('#seg-create').classList.toggle('on', ui.authMode === 'create');
   $('#seg-join').classList.toggle('on', ui.authMode === 'join');
   $('#box-create').classList.toggle('hidden', ui.authMode !== 'create');
@@ -4930,11 +6428,17 @@ $('#av-file').addEventListener('change', async e => {
 });
 
 function readNick() {
-  const n = $('#nick').value.replace(/\s+/g, ' ').trim().slice(0, 14);
-  if (n.length < 2) { toast('Wpisz nick (min. 2 znaki) 🙂', 'warn'); $('#nick').focus(); return null; }
-  profile.nick = n;
+  const v = validateNickInput($('#nick').value);
+  if (!v.ok) {
+    toast(v.err, 'warn');
+    if (ui.startStep !== 1) setStartStep(1, true);
+    $('#nick').focus();
+    return null;
+  }
+  profile.nick = v.nick;
+  $('#nick').value = v.nick;
   saveProfile();
-  return n;
+  return v.nick;
 }
 
 function doEnter() {
@@ -4962,15 +6466,29 @@ function doEnter() {
   el.addEventListener('paste', e => {
     e.preventDefault();
     const pasted = (e.clipboardData || window.clipboardData)?.getData('text') || '';
-    const stripped = pasted.replace(/\D+/g, '');
+    const stripped = pasted.toUpperCase().replace(/[^A-Z0-9]+/g, '');
     const clean = stripped.slice(0, CODE_MAX);
     el.value = clean;
     if (stripped.length > CODE_MAX) {
-      toast(`Kod skrócono do ${CODE_MAX} cyfr.`, 'warn', 2400);
+      toast(`Kod skrócono do ${CODE_MAX} znaków.`, 'warn', 2400);
     }
   });
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); doEnter(); }
+  });
 });
-['#code-create', '#code-join', '#nick'].forEach(s => $(s).addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); doEnter(); } }));
+$('#nick').addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); goToStartStep2(); }
+});
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  if ($('#scr-start').classList.contains('hidden') || !$('#modal').classList.contains('hidden')) return;
+  const tag = document.activeElement && document.activeElement.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'BUTTON') return;
+  e.preventDefault();
+  if (ui.startStep === 1) goToStartStep2();
+  else doEnter();
+});
 $('#word-input').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); A.addWord(); } });
 $('#word-search').addEventListener('input', e => {
   ui.wordSearch = e.target.value;
@@ -5286,14 +6804,25 @@ const A = {
     av.classList.remove('bump'); void av.offsetWidth; av.classList.add('bump');
   },
   clearImg() { profile.img = null; saveProfile(); renderStart(); },
+  startNext() { goToStartStep2(); },
+  startBack() { setStartStep(1, true); },
+  lobbyCat(b) {
+    const c = b.dataset.c === 'local' ? 'local' : 'online';
+    if (ui.lobbyCat === c) return;
+    ui.lobbyCat = c;
+    renderLobby();
+  },
   authMode(b) { ui.authMode = b.dataset.m; renderStart(); },
   rollCode() { $('#code-create').value = randCode(); },
   enter() { doEnter(); },
   resume() {
     const ses = readValidSession(6 * 3600e3);
-    if (!ses || !readNick()) return;
+    if (!ses) return;
+    if (!profile.nick && !readNick()) return;
+    if (!$('#nick').value.trim() && profile.nick) $('#nick').value = profile.nick;
     setPid(ses.pid);
     ui.authMode = 'join';
+    ui.startStep = 2;
     $('#code-join').value = ses.code;
     renderStart();
     enterRoom('join', ses.code);
@@ -5318,7 +6847,7 @@ const A = {
   },
   help() {
     modal(`<h3><i class="fa-solid fa-circle-question" style="color:var(--cyan)"></i> Jak grać w ${APP_NAME}?</h3>
-      <p style="margin-bottom:12px">Zbierz ekipę i podaj im <b>5-cyfrowy kod pokoju</b> lub kod QR. Każdy wrzuca swoje hasła do wspólnego worka (albo dorzuca +25 gotowych).</p>
+      <p style="margin-bottom:12px">Zbierz ekipę i podaj im <b>kod pokoju (3–6 znaków)</b> lub kod QR. Każdy wrzuca swoje hasła do wspólnego worka (albo dorzuca +25 gotowych).</p>
       <div class="col" style="gap:9px;margin-bottom:15px">
         <div class="cfg-row" style="align-items:flex-start">
           <div>
@@ -5451,15 +6980,32 @@ const A = {
       else (d.exitFullscreen || d.webkitExitFullscreen).call(d);
     } catch { toast('Ta przeglądarka nie obsługuje pełnego ekranu.', 'warn'); }
   },
-  startLive() { hostStartLive(); },
+  startLive() { hostStartLive('live'); },
+  startDiscord() { hostStartLive('discord'); },
   joinLive() {
     if (!S || !S.live.on) return;
     net.liveExitPendingUntil = 0;
+    ui.discordView = false;
+    ui.discordVariantSyncAt = S.live.started;
     act('enter', { mode: 'live' });
     const me = S.players[pid];
     if (me) me.mode = 'live';
     render();
   },
+  joinDiscord() {
+    if (!S || !S.live.on) return;
+    net.liveExitPendingUntil = 0;
+    ui.discordView = true;
+    ui.discordVariantSyncAt = S.live.started;
+    ui.devicePickedAt = S.live.started;
+    act('enter', { mode: 'live' });
+    const me = S.players[pid];
+    if (me) me.mode = 'live';
+    render();
+  },
+  dcToggleCam() { dcToggleCam(); },
+  dcToggleMic() { dcToggleMic(); },
+  dcPickCam() { dcPickCam(); },
   pickDevice(b) {
     const dev = b.dataset.dev === 'pc' ? 'pc' : 'phone';
     ui.layoutPref = dev;
@@ -5471,6 +7017,7 @@ const A = {
   },
   exitLive() {
     ui.drawerOpen = false;
+    if (dc.active) dcStopAllMedia(true);
     net.liveExitPendingUntil = Date.now() + 2600;
     net.lastExitSent = Date.now();
     act('exit');
@@ -5546,7 +7093,9 @@ const A = {
     toast('Rozdano brakujące hasła!', 'ok');
   },
   async endLive() {
-    if (await confirmBox('Zakończyć Ekipa Live?', 'Wszyscy wrócą do lobby i zobaczą podium z wynikami rundy.', 'Zakończ i pokaż Podium', true)) {
+    const isDc = S && S.live && S.live.variant === 'discord';
+    if (await confirmBox(isDc ? 'Zakończyć Tryb Discord?' : 'Zakończyć Ekipa Live?', 'Wszyscy wrócą do lobby i zobaczą podium z wynikami rundy.', 'Zakończ i pokaż Podium', true)) {
+      if (dc.active) dcStopAllMedia(true);
       hostEndLive();
     }
   },
@@ -5753,8 +7302,8 @@ document.addEventListener('click', e => {
 });
 
 /* 1.1 — mikrointerakcje: fala (ripple) + dźwięk kliknięcia, jeden delegowany listener */
-const CLICKABLE = '.btn, .tabs button, .seg button, .switch, .mini, .cats button, .av-grid button, .code-chip, .note-tags button, .witem .x, .view-sw button, .mobile-dock button, .react-btn, .wfilters button';
-const OWN_SOUND = '[data-act="mine"], [data-act="fhRes"], [data-act="judge"], [data-act="sound"], [data-act="fhGo"], [data-act="fhAgain"], [data-act="startLive"], [data-act="react"]';
+const CLICKABLE = '.btn, .tabs button, .seg button, .lobby-cat-btn, .switch, .mini, .cats button, .av-grid button, .code-chip, .note-tags button, .witem .x, .view-sw button, .mobile-dock button, .react-btn, .wfilters button, .dc-jbtn';
+const OWN_SOUND = '[data-act="mine"], [data-act="fhRes"], [data-act="judge"], [data-act="sound"], [data-act="fhGo"], [data-act="fhAgain"], [data-act="startLive"], [data-act="startDiscord"], [data-act="react"]';
 document.addEventListener('pointerdown', e => {
   const b = e.target.closest(CLICKABLE);
   if (!b || b.disabled) return;
@@ -5770,7 +7319,7 @@ document.addEventListener('pointerdown', e => {
     b.appendChild(s);
     setTimeout(() => s.remove(), 600);
   }
-  if (!b.matches(OWN_SOUND)) sfx(b.matches('.switch, .seg button, .tabs button, .cats button, .av-grid button, .view-sw button, .mobile-dock button, .wfilters button') ? 'activate' : 'click');
+  if (!b.matches(OWN_SOUND)) sfx(b.matches('.switch, .seg button, .lobby-cat-btn, .tabs button, .cats button, .av-grid button, .view-sw button, .mobile-dock button, .wfilters button') ? 'activate' : 'click');
 }, { passive: true });
 
 window.addEventListener('resize', () => { if (net.joined) moveTabIndicator(); }, { passive: true });
@@ -5791,6 +7340,7 @@ document.addEventListener('visibilitychange', () => {
 });
 
 window.addEventListener('pagehide', () => {
+  if (dc.active || dc.camOn || dc.micOn) dcStopAllMedia(true);
   if (net.joined && net.connected && !net.leaving) {
     try {
       if (!net.amHost) act('leave', { soft: true });
@@ -5809,19 +7359,21 @@ window.addEventListener('pagehide', () => {
     if (rawRoom) {
       const v = validateRoomCode(rawRoom);
       if (v.ok) {
+        ui.inviteCode = v.code;
         ui.authMode = 'join';
         $('#code-join').value = v.code;
       } else {
-        toast('Link zawiera nieprawidłowy kod pokoju (wymagane dokładnie 5 cyfr).', 'warn', 3400);
+        toast('Link zawiera nieprawidłowy kod pokoju (wymagane 3–6 znaków).', 'warn', 3400);
       }
     }
   } catch {}
   renderStart();
 
   const ses = readValidSession(15 * 60e3);
-  if (ses && ses.pid === pid && profile.nick) {
+  if (ses && ses.pid === pid && profile.nick && !ui.inviteCode) {
     $('#nick').value = profile.nick;
     ui.authMode = 'join';
+    ui.startStep = 2;
     $('#code-join').value = ses.code;
     renderStart();
     enterRoom('join', ses.code);

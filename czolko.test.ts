@@ -123,7 +123,7 @@ test('hostPublishNow drops older state if async CryptoGuard.sign resolves out of
   assert.equal(published[0].v, 2);
 });
 
-test('room codes are strictly 5 numeric digits (0-9)', () => {
+test('room codes support 3–6 alphanumeric characters (A-Z, 0-9)', () => {
   const consts = inlineScript.match(/const CODE_MIN = [\s\S]*?const CODE_REGEX = [^;]+;/);
   const fns = inlineScript.match(/function randCode\(\) \{[\s\S]*?function validateRoomCode\(raw\) \{[\s\S]*?\n\}/);
   assert.ok(consts && fns, 'Expected room code constants and helpers');
@@ -133,23 +133,25 @@ test('room codes are strictly 5 numeric digits (0-9)', () => {
   });
   const api = vm.runInContext(`${consts[0]}\n${fns[0]}\n({ randCode, sanitizeCodeInput, validateRoomCode, CODE_MIN, CODE_MAX, CODE_GEN_LEN });`, ctx);
 
-  assert.equal(api.CODE_MIN, 5);
-  assert.equal(api.CODE_MAX, 5);
+  assert.equal(api.CODE_MIN, 3);
+  assert.equal(api.CODE_MAX, 6);
   assert.equal(api.CODE_GEN_LEN, 5);
 
   for (let i = 0; i < 40; i++) {
     const c = api.randCode();
-    assert.match(c, /^\d{5}$/, `Generated code ${c} must be 5 digits`);
+    assert.match(c, /^[A-Z0-9]{5}$/, `Generated code ${c} must be 5 alphanumeric chars`);
   }
 
-  assert.equal(api.sanitizeCodeInput('ab12-34 567'), '12345');
+  assert.equal(api.sanitizeCodeInput('ek-ip a123'), 'EKIPA1');
   assert.equal(api.sanitizeCodeInput('00912'), '00912');
 
   assert.equal(api.validateRoomCode('48291').ok, true);
-  assert.equal(api.validateRoomCode('00421').ok, true);
-  assert.equal(api.validateRoomCode('1234').ok, false);
-  assert.equal(api.validateRoomCode('123456').ok, false);
-  assert.equal(api.validateRoomCode('AB123').ok, false);
+  assert.equal(api.validateRoomCode('ekipa').code, 'EKIPA');
+  assert.equal(api.validateRoomCode('AB1').ok, true);
+  assert.equal(api.validateRoomCode('AB1234').ok, true);
+  assert.equal(api.validateRoomCode('12').ok, false);
+  assert.equal(api.validateRoomCode('1234567').ok, false);
+  assert.equal(api.validateRoomCode('AB!12').ok, false);
   assert.equal(api.validateRoomCode('').ok, false);
 });
 
@@ -202,3 +204,111 @@ test('Phone/Computer switcher, ranking visual highlights, and party extras are w
   assert.match(inlineScript, /function spawnReaction\(/);
 });
 
+test('computeDiscordGridLayout centers 5 players as 3 top + 2 bottom and scales cleanly', () => {
+  const fnMatch = inlineScript.match(/function computeDiscordGridLayout\(count\) \{[\s\S]*?\n\}/);
+  assert.ok(fnMatch, 'computeDiscordGridLayout should exist');
+  const ctx = vm.createContext({ Math, Number });
+  const computeDiscordGridLayout = vm.runInContext(`${fnMatch[0]}; computeDiscordGridLayout;`, ctx);
+
+  const res = (n: number) => ({ ...computeDiscordGridLayout(n) });
+  assert.deepEqual(res(1), { cols: 1, rows: 1 });
+  assert.deepEqual(res(2), { cols: 2, rows: 1 });
+  assert.deepEqual(res(3), { cols: 3, rows: 1 });
+  assert.deepEqual(res(4), { cols: 2, rows: 2 });
+  assert.deepEqual(res(5), { cols: 3, rows: 2 });
+  assert.deepEqual(res(6), { cols: 3, rows: 2 });
+  assert.deepEqual(res(7), { cols: 4, rows: 2 });
+  assert.deepEqual(res(9), { cols: 4, rows: 3 });
+});
+
+test('computeVadDecision debounces speaking status and shouldBePolitePeer breaks glare deterministically', () => {
+  const vadMatch = inlineScript.match(/function computeVadDecision\([\s\S]*?\n\}/);
+  const politeMatch = inlineScript.match(/function shouldBePolitePeer\([\s\S]*?\n\}/);
+  assert.ok(vadMatch && politeMatch, 'VAD and polite peer helpers should exist');
+  const ctx = vm.createContext({ DC_VAD_THRESHOLD: 0.032, DC_VAD_HOLD_MS: 220, String });
+  const api = vm.runInContext(`${vadMatch[0]}\n${politeMatch[0]}\n({ computeVadDecision, shouldBePolitePeer });`, ctx);
+
+  // Silent start -> stays false
+  assert.equal(api.computeVadDecision(0.01, false, 1000, 0).speaking, false);
+  // Loud voice -> immediately true
+  const on = api.computeVadDecision(0.08, false, 1000, 0);
+  assert.equal(on.speaking, true);
+  assert.equal(on.lastAboveTs, 1000);
+  // Brief 120ms dip -> stays true due to ~220ms debounce hold
+  assert.equal(api.computeVadDecision(0.005, true, 1120, on.lastAboveTs).speaking, true);
+  // 250ms silence -> turns false
+  assert.equal(api.computeVadDecision(0.005, true, 1250, on.lastAboveTs).speaking, false);
+
+  // Exactly one side of any peer pair is polite
+  assert.notEqual(api.shouldBePolitePeer('p_alpha', 'p_beta'), api.shouldBePolitePeer('p_beta', 'p_alpha'));
+});
+
+test('Tryb Discord WebRTC P2P signaling, 480p/20fps caps, VAD audio isolation, and cleanup are wired', () => {
+  assert.match(html, /class="mode discord"/);
+  assert.match(html, /id="scr-discord"/);
+  assert.match(html, /aspect-ratio:\s*16\s*\/\s*9/);
+  assert.match(html, /data-act="startDiscord"|data-act="dcToggleCam"/);
+  assert.match(html, /data-act="dcToggleMic"/);
+  assert.match(html, /data-act="dcPickCam"/);
+  assert.match(inlineScript, /\$\{net\.base\}\/rtc/);
+  assert.match(inlineScript, /stun:stun\.l\.google\.com:19302/);
+  assert.match(inlineScript, /width:\s*\{\s*ideal:\s*640/);
+  assert.match(inlineScript, /height:\s*\{\s*ideal:\s*360/);
+  assert.match(inlineScript, /frameRate:\s*\{\s*ideal:\s*20/);
+  assert.match(inlineScript, /t:\s*'cam_off'/);
+  assert.match(inlineScript, /function dcStopAllMedia\(/);
+  assert.match(inlineScript, /t\.stop\(\)/);
+  // Self mirror only on .is-me .dc-video
+  assert.match(html, /\.dc-tile\.is-me\s+\.dc-video\s*\{\s*transform:\s*scaleX\(-1\)/);
+});
+
+test('two-step start screen validation and Online/Local Lobby panel logic work cleanly', () => {
+  const nickMatch = inlineScript.match(/function validateNickInput\(raw\) \{[\s\S]*?\n\}/);
+  const lobbyMatch = inlineScript.match(/function computeLobbyModePanelState\(lobbyCat, liveState\) \{[\s\S]*?\n\}/);
+  assert.ok(nickMatch && lobbyMatch, 'Expected validateNickInput and computeLobbyModePanelState');
+  const ctx = vm.createContext({ String, Boolean });
+  const api = vm.runInContext(`${nickMatch[0]}\n${lobbyMatch[0]}\n({ validateNickInput, computeLobbyModePanelState });`, ctx);
+
+  // Nick validation (min 2 chars, whitespace normalized, max 14 chars)
+  assert.equal(api.validateNickInput('').ok, false);
+  assert.equal(api.validateNickInput(' A ').ok, false);
+  assert.equal(api.validateNickInput('  Kuba  ').ok, true);
+  assert.equal(api.validateNickInput('  Kuba  ').nick, 'Kuba');
+  assert.equal(api.validateNickInput('BardzoDlugiNickGracza').nick.length, 14);
+
+  // Online vs Local Lobby panels + cross-tab active banner action
+  const onIdle = { ...api.computeLobbyModePanelState('online', { on: false }) };
+  assert.deepEqual(onIdle, {
+    cat: 'online',
+    showOnlinePanel: true,
+    showLocalPanel: false,
+    onlineHasLive: false,
+    localHasLive: false,
+    bannerAction: 'joinLive'
+  });
+
+  // Viewing Local tab while Discord (Online) game is active -> banner still joins Discord
+  const localWithDiscord = { ...api.computeLobbyModePanelState('local', { on: true, variant: 'discord' }) };
+  assert.equal(localWithDiscord.showLocalPanel, true);
+  assert.equal(localWithDiscord.showOnlinePanel, false);
+  assert.equal(localWithDiscord.onlineHasLive, true);
+  assert.equal(localWithDiscord.localHasLive, false);
+  assert.equal(localWithDiscord.bannerAction, 'joinDiscord');
+
+  // Viewing Online tab while Ekipa Live (Local) game is active -> banner joins Live
+  const onlineWithLive = { ...api.computeLobbyModePanelState('online', { on: true, variant: 'live' }) };
+  assert.equal(onlineWithLive.showOnlinePanel, true);
+  assert.equal(onlineWithLive.localHasLive, true);
+  assert.equal(onlineWithLive.bannerAction, 'joinLive');
+
+  // HTML wiring check for two-step start & Online/Local Lobby tabs
+  assert.match(html, /id="start-step-1"/);
+  assert.match(html, /id="start-step-2"/);
+  assert.match(html, /id="invite-room-chip"/);
+  assert.match(html, /data-act="startNext"/);
+  assert.match(html, /data-act="startBack"/);
+  assert.match(html, /id="lcat-online"/);
+  assert.match(html, /id="lcat-local"/);
+  assert.match(html, /id="lpanel-online"/);
+  assert.match(html, /id="lpanel-local"/);
+});
